@@ -1,0 +1,19 @@
+﻿<!-- dataTypeSelector.html -->
+
+    <select required class="filter-select" ng-model="selectedStatus"
+            ng-options="status.value as status.description for status in orderStatus">
+        <option value="">-- Select Status --</option>
+    </select>
+   
+
+<style>
+    .filter-select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: white;
+        cursor: pointer;
+    }
+</style>

@@ -1,0 +1,352 @@
+﻿<div class="checkout-modal">
+    <div class="checkout-header" style="background-color: #2c3e50;">
+        <h2 style="color: white;"><i class="fas fa-credit-card"></i> Checkout</h2>
+        <button class="close-btn" ng-click="closeCheckout()" style="color: white;">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="checkout-body">
+        <form name="checkoutForm" novalidate>
+            <!-- Address Form -->
+            <div class="checkout-section">
+                <h3 style="color: #2c3e50;"><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label style="color: #2c3e50;">Full Name</label>
+                        <input type="text" ng-model="checkoutData.fullName" required style="border-color: #2c3e50;">
+                    </div>
+                    <div class="form-group" style="flex: 2;">
+                        <label style="color: #2c3e50;">Phone Number</label>
+                        <input type="tel" ng-model="checkoutData.phone" required style="border-color: #2c3e50;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label style="color: #2c3e50;">City</label>
+                        <input type="text" ng-model="checkoutData.city" required style="border-color: #2c3e50;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="color: #2c3e50;">Address Line</label>
+                    <textarea ng-model="checkoutData.address"
+                              required
+                              style="width: 100% !important;
+
+min-width: 100% !important;
+max-width: 900px !important;
+border: 1px solid #2c3e50 !important;
+padding: 10px 12px !important;
+border-radius: 6px !important;
+box-sizing: border-box !important;
+display: block !important;
+margin: 0 !important;
+font-size: 16px !important;">
+                           
+                          
+</textarea>
+                </div>
+
+
+            </div>
+
+            <!-- Payment Method -->
+            <div class="checkout-section">
+                <h3 style="color: #2c3e50;"><i class="fas fa-money-bill-wave"></i> Payment Method</h3>
+                <div class="payment-options">
+                    <div class="payment-option" ng-class="{'selected': checkoutData.paymentMethod === 'cash'}" ng-click="checkoutData.paymentMethod = 'cash'" style="border-color: #2c3e50;">
+                        <i class="fas fa-money-bill-alt" style="color: #2c3e50;"></i>
+                        <span style="font-size:1.4rem; color: #2c3e50;">Cash on Delivery</span>
+                        <div class="checkmark" style="border-color: #2c3e50;"></div>
+                    </div>
+                    <div class="payment-option" ng-class="{'selected': checkoutData.paymentMethod === 'whish'}" ng-click="checkoutData.paymentMethod = 'whish'" style="border-color: #2c3e50;">
+                        <i class="fas fa-mobile-alt" style="color: #2c3e50;"></i>
+                        <span style="font-size:1.4rem; color: #2c3e50;">Whish Money</span>
+                        <div class="checkmark" style="border-color: #2c3e50;"></div>
+                    </div>
+                </div>
+
+                <!-- Whish Money Instructions -->
+                <div class="whish-instructions" ng-show="checkoutData.paymentMethod === 'whish'" style="background-color: #f8f9fa; border-left: 4px solid #e74c3c;">
+                    <h4 style="color: #2c3e50;"><i class="fas fa-info-circle" style="color: #e74c3c;"></i> How to pay with Whish Money</h4>
+                    <ol style="color: #2c3e50;">
+                        <li>Open your Whish Money app</li>
+                        <li>Select "Send Money"</li>
+                        <li>Enter our merchant number: <strong>03-123456</strong></li>
+                        <li>Enter the total amount: <strong>{{total | currency}}</strong></li>
+                        <li>Add your order number in the reference: <strong>ORD{{orderId}}</strong></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="checkout-footer" style="background-color: #f8f9fa; border-top: 1px solid #e74c3c;">
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span style="color: #2c3e50;">Subtotal:</span>
+                        <span style="color: #2c3e50;">{{subtotal | currency}}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span style="color: #2c3e50;">Delivery Fee:</span>
+                        <span style="color: #2c3e50;">{{deliveryFee | currency}}</span>
+                    </div>
+                    <div class="summary-row total" style="border-top-color: #2c3e50;">
+                        <span style="color: #2c3e50; font-weight: bold;">Total:</span>
+                        <span style="color: #2c3e50; font-weight: bold;">{{total | currency}}</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="place-order-btn" ng-click="placeOrder()" ng-disabled="checkoutForm.$invalid" style="background-color: #e74c3c;">
+                    <i class="fas fa-shopping-bag"></i> Place Order
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Checkout Modal */
+    .checkout-modal {
+        position: fixed;
+        width: 90%;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    /* Header */
+    .checkout-header {
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .checkout-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkout-header .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .checkout-header .close-btn:hover {
+                transform: scale(1.1);
+            }
+
+    /* Body */
+    .checkout-body {
+        padding: 20px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .checkout-section {
+        margin-bottom: 30px;
+    }
+
+        .checkout-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    /* Form Styles */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            min-width: 100% !important;
+            width: 100% !important;
+            padding: 5px 7px;
+            border: 1px solid;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+            .form-group input:focus {
+                outline: none;
+                border-color: #e74c3c;
+                box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+            }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+    /* Payment Options */
+    .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .payment-option {
+        padding: 15px 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+        .payment-option.selected {
+            background-color: rgba(44, 62, 80, 0.05);
+        }
+
+        .payment-option i {
+            font-size: 1.5rem;
+        }
+
+        .payment-option span {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+    .checkmark {
+        width: 20px;
+        height: 20px;
+        border: 2px solid;
+        border-radius: 50%;
+    }
+
+    .payment-option.selected .checkmark {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        position: relative;
+    }
+
+        .payment-option.selected .checkmark::after {
+            content: "✓";
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+    /* Whish Instructions */
+    .whish-instructions {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+        .whish-instructions h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whish-instructions ol {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .whish-instructions li {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+    /* Footer */
+    .checkout-footer {
+        padding: 20px;
+    }
+
+    .order-summary {
+        margin-bottom: 20px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+        .summary-row.total {
+            font-weight: 600;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid;
+        }
+
+    .place-order-btn {
+        width: 100%;
+        padding: 15px;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s;
+    }
+
+        .place-order-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .place-order-btn:active {
+            transform: translateY(0);
+        }
+
+        .place-order-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .checkout-modal {
+            width: 95%;
+            max-height: 95vh;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>

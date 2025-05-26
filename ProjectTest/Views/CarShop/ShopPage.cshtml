@@ -1,0 +1,1118 @@
+﻿<!DOCTYPE html>
+<html ng-app="Ecommerce" ng-show="!isLoading">
+
+<head>
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+
+
+    <script src="~/libs/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="~/libs/bootstrap.min.css">
+    <script src="~/libs/angular.min.js"></script>
+    <script src="~/libs/ui-bootstrap-tpls.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/libs/test/all.min.css">
+
+    <!-- App scripts -->
+    <script src="/MyScripts/ShopPage/ShopPageCtrl.js"></script>
+    <script src="/MyScripts/ShopPage/ShoppingCartController.js"></script>
+    <script src="/MyScripts/ShopPage/CheckoutController.js"></script>
+    <script src="~/MyServices/Shop/ShopService.js"></script>
+    <script src="/MyServices/Modals/modalService.js"></script>
+    <script src="/MyScripts/Authentication/AuthenticationCtrl.js"></script>
+    <script src="/MyServices/Cart/CartService.js"></script>
+    <script src="/MyConstant/DiscountTypeCT.js"></script>
+    <script src="/MyDirectives/discountTypeSelector/discountTypeSelector.js"></script>
+    <script src="/MyDirectives/attributeSelector/attributeSelector.js"></script>
+    <script src="/MyDirectives/categorySelector/categorySelector.js"></script>
+    <script src="/MyDirectives/ProductAttributeGrid/productAttributeGrid.js"></script>
+    <script src="/MyScripts/Products/ProductEditorCtrl.js"></script>
+    <script src="/MyScripts/Products/ProductQuickViewCtrl.js"></script>
+    <script src="/MyScripts/ShopPage/ReviewController.js"></script>
+    <script src="/MyScripts/ShopPage/GetReviewCtrl.js"></script>
+
+    <script src="/MyServices/Product/ProductWebApiService.js"></script>
+    <script src="/MyServices/Category/CategoryWebApiService.js"></script>
+    <script src="/MyServices/Product/ProductService.js"></script>
+    <script src="/MyServices/Shop/ShopWebApiService.js"></script>
+
+    <script src="/MyServices/Authentication/AuthenticationService.js"></script>
+    <script src="/MyScripts/Authentication/AuthenticationCtrl.js"></script>
+
+
+    <script src="/MyServices/WebApi/WebApiService.js"></script>
+    <script src="/MyScripts/Category/CategoryEditorCtrl.js"></script>
+    <script src="/MyServices/Category/CategoryService.js"></script>
+    <script src="/MyServices/Pagination/PaginationService.js"></script>
+
+    <style>
+        /* ALL ORIGINAL STYLES REMAIN EXACTLY THE SAME */
+        :root {
+            --primary-color: #3498db;
+            --hover-color: #2980b9;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --discount-color: #e74c3c;
+            --discount-bg: #fff2f1;
+        }
+
+        body {
+            font-size: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #212529;
+        }
+
+        .product-section {
+            padding: 15px 0;
+            background-color: #f8f9fa;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: #fff;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .product-card:hover {
+                box-shadow: var(--card-hover-shadow);
+                transform: translateY(-5px);
+            }
+
+            .product-card.inactive {
+                opacity: 0.7;
+            }
+
+                .product-card.inactive::after {
+                    content: "UNLISTED";
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: #d9534f;
+                    color: white;
+                    padding: 3px 8px;
+                    border-radius: 3px;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+
+            /* Discount styling */
+            .product-card.has-discount {
+                border-left: 4px solid var(--discount-color);
+            }
+
+            .product-card .discount-badge {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background-color: var(--discount-color);
+                color: white;
+                padding: 3px 8px;
+                border-radius: 3px;
+                font-size: 15px;
+                font-weight: bold;
+                z-index: 2;
+            }
+
+        .product-image-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-main-image {
+            opacity: 0.9;
+        }
+
+        .product-thumbnails {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .product-card:hover .product-thumbnails {
+            opacity: 1;
+        }
+
+        .thumbnail {
+            width: 40px;
+            height: 40px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            object-fit: contain;
+        }
+
+            .thumbnail:hover, .thumbnail.active {
+                border-color: #337ab7;
+            }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #d9534f;
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
+        .discount-price {
+            color: var(--discount-color);
+            font-weight: bold;
+        }
+
+        .product-quantity {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+            /* In Stock (Green) */
+            .product-quantity.in-stock {
+                background-color: #f0fdf4;
+                color: #16a34a;
+                border-left: 3px solid #16a34a;
+            }
+
+            /* Low Stock (Orange/Yellow Warning) */
+            .product-quantity.low-stock {
+                background-color: #fff7ed;
+                color: #ea580c;
+                border-left: 3px solid #f59e0b;
+                animation: pulse 2s infinite; /* Optional: adds urgency */
+            }
+
+            /* Out of Stock (Red) */
+            .product-quantity.out-of-stock {
+                background-color: #fef2f2;
+                color: #dc2626;
+                border-left: 3px solid #dc2626;
+            }
+
+        .product-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .product-card:hover .product-details {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .product-description {
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .product-meta {
+            font-size: 15px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quick-view-btn {
+            opacity: 0;
+            transition: var(--transition);
+            font-size: 15px;
+            padding: 5px 10px;
+        }
+
+        .product-card:hover .quick-view-btn {
+            opacity: 1;
+        }
+
+        .btn-edit {
+            background-color: #f0ad4e;
+            border-color: #eea236;
+            color: white;
+        }
+
+            .btn-edit:hover {
+                background-color: #ec971f;
+                border-color: #d58512;
+                color: white;
+            }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #337ab7;
+            display: inline-block;
+        }
+
+        .btn-group {
+            margin-right: 10px;
+        }
+
+        /* Modal Gallery Styles */
+        .modal-gallery {
+            margin-bottom: 15px;
+        }
+
+        .modal-main-image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .modal-thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .modal-thumbnail {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 4px;
+        }
+
+            .modal-thumbnail:hover, .modal-thumbnail.active {
+                border-color: #337ab7;
+            }
+
+        .input-group-addon {
+            background-color: #fff;
+            border-right: none;
+        }
+
+        .btn-group-justified .btn {
+            transition: all 0.2s ease;
+        }
+
+        /* Discount filter button */
+        .btn-discount {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+            .btn-discount.active {
+                background-color: #e74c3c;
+                color: white;
+            }
+
+        /* NEW ADD-TO-CART STYLES THAT MATCH EXISTING DESIGN */
+        .cart-controls {
+            display: flex;
+            margin: 10px 0;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            width: 120px;
+            margin-right: 10px;
+        }
+
+        .quantity-input {
+            min-width: 40px !important;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            padding: 6px;
+            font-size: 15px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 6px 0;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+            .add-to-cart-btn:hover {
+                background: #4cae4c;
+            }
+
+            .add-to-cart-btn:disabled {
+                background: #cccccc;
+                cursor: not-allowed;
+            }
+
+            .add-to-cart-btn i {
+                margin-right: 5px;
+            }
+
+
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--discount-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .add-to-cart-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            transition: all 0.3s;
+        }
+
+            .add-to-cart-btn:hover {
+                background-color: #c0392b; /* Darker red */
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+            }
+
+            .add-to-cart-btn:disabled {
+                background-color: #95a5a6;
+                cursor: not-allowed;
+            }
+
+        .add-to-cart-btn,
+        .quick-view-btn,
+        .review-btn {
+            font-size: 13px; /* Reduced from default */
+            padding: 5px 8px; /* More compact */
+            border-radius: 3px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        /* ADD TO CART (Primary) */
+        .add-to-cart-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+        }
+
+            .add-to-cart-btn:hover {
+                background-color: #c0392b;
+                box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+            }
+
+        /* QUICK VIEW (Secondary) */
+        .quick-view-btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+        }
+
+            .quick-view-btn:hover {
+                background-color: #1a252f;
+            }
+
+        /* REVIEW (Tertiary) */
+        .review-btn {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #2c3e50;
+            border: 1px solid #d6d6d6;
+        }
+
+            .review-btn:hover {
+                background-color: #ecf0f1;
+                border-color: #e74c3c;
+            }
+
+            .review-btn i {
+                color: #f39c12; /* Gold icon */
+                font-size: 11px; /* Slightly smaller icon */
+            }
+
+        /* Button Container */
+        .action-buttons {
+            display: flex;
+            gap: 6px; /* Tighter spacing */
+        }
+
+        .filter-panel {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .filter-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-default.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .filter-header h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .filter-toggle {
+            transition: transform 0.3s ease;
+        }
+
+            .filter-toggle.collapsed {
+                transform: rotate(-90deg);
+            }
+
+        .filter-body {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-group-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+            .filter-group-title i {
+                margin-right: 8px;
+                color: #e74c3c;
+            }
+
+        .price-range-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+            .price-range-inputs .form-group {
+                flex: 1;
+                margin-bottom: 0;
+            }
+
+        .stock-status-buttons .btn {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn-apply {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+            .btn-apply:hover {
+                background-color: #1a252f;
+                color: white;
+            }
+
+        .btn-reset {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+
+
+        .btn-reset:hover {
+            background-color: #e9ecef;
+        }
+
+        .filter-count-badge {
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 12px;
+            margin-left: 8px;
+            display: inline-block;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Compact filter header */
+        .filter-header h4 {
+            display: flex;
+            align-items: center;
+        }
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .loader-content {
+            text-align: center;
+            transform: translateY(-50px);
+        }
+
+        .loader-spinner {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto 30px;
+        }
+
+        .loader-spinner-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: #e74c3c;
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+            .loader-spinner-inner:nth-child(1) {
+                animation-delay: -0.45s;
+                width: 70%;
+                height: 70%;
+                top: 15%;
+                left: 15%;
+                border-top-color: #2c3e50;
+            }
+
+            .loader-spinner-inner:nth-child(2) {
+                animation-delay: -0.3s;
+                width: 50%;
+                height: 50%;
+                top: 25%;
+                left: 25%;
+                border-top-color: #e74c3c;
+            }
+
+            .loader-spinner-inner:nth-child(3) {
+                animation-delay: -0.15s;
+                width: 30%;
+                height: 30%;
+                top: 35%;
+                left: 35%;
+                border-top-color: #2c3e50;
+            }
+
+        .loader-text {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .loader-subtext {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Optional: Add pulse animation for text */
+        @@keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        .loader-text {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        .pagination-container {
+            margin: 30px 0;
+        }
+
+        .pagination {
+            font-size: 13px !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .page-link {
+            padding: 15px 25px;
+            min-width: 60px;
+            text-align: center;
+            font-weight: bold;
+            font-size: inherit !important;
+            border-radius: 8px !important;
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            height: 100%;
+            line-height: 1;
+        }
+
+            .page-link i {
+                margin: 0 5px;
+            }
+
+        .page-item.active .page-link {
+            background-color: #e74c3c !important;
+            border-color: #e74c3c !important;
+            color: white !important;
+        }
+
+            .page-item.active .page-link:hover {
+                background-color: #e74c3c !important;
+                border-color: #e74c3c !important;
+                cursor: pointer;
+            }
+
+        .page-link:hover {
+            background-color: #f0f0f0 !important;
+            color: #2c3e50 !important;
+            cursor: pointer;
+        }
+        .no-products-message {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 1px solid #eee;
+        }
+
+        .no-products-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .no-products-message h3 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .no-products-message p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body ng-controller="ShopPageController">
+    <div ng-show="isLoading" class="loader-container">
+        <div class="loader-content">
+            <div class="loader-spinner">
+                <div class="loader-spinner-inner"></div>
+                <div class="loader-spinner-inner"></div>
+                <div class="loader-spinner-inner"></div>
+            </div>
+            <div class="loader-text">Loading Products</div>
+            <div class="loader-subtext">Please wait while we prepare your content</div>
+        </div>
+    </div>
+    <div class="container product-section">
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+            <div ng-click="toggleFilterCollapse()" class="filter-header" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="true" aria-controls="filterCollapse">
+                <h4>
+                    <i class="fas fa-filter"></i> &nbsp; Filter Products
+                    <span class="filter-count-badge" ng-if="getActiveFilterCount() > 0">
+                        {{getActiveFilterCount()}}
+                    </span>
+                </h4>
+                <span class="filter-toggle" ng-class="{'collapsed': isFilterCollapsed}">
+                    <i class="fas fa-chevron-down"></i>
+                </span>
+            </div>
+
+            <div id="filterCollapse" class="collapse in" ng-show="!isFilterCollapsed">
+                <div class="filter-body">
+                    <form name="filterForm">
+                        <div class="row">
+                            <!-- Name Filter -->
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-group-title">
+                                        <i class="fas fa-tag"></i> Product Name
+                                    </div>
+                                    <input type="text" class="form-control" ng-model="filters.Name"
+                                           placeholder="Search by product name...">
+                                </div>
+                            </div>
+
+                            <!-- Category Filter -->
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-group-title">
+                                        <i class="fas fa-folder"></i> Category
+                                    </div>
+                                    <category-selector on-ready="onCategorySelectorDirectiveReady"
+                                                       on-selection-changed="onCSC">
+                                    </category-selector>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Price Range -->
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-group-title">
+                                        <i class="fas fa-dollar-sign"></i> Price Range
+                                    </div>
+                                    <div class="price-range-inputs">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   ng-model="filters.MinPrice"
+                                                   placeholder="Min price" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   ng-model="filters.MaxPrice"
+                                                   placeholder="Max price" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="filter-group">
+                                    <div class="filter-group-title">
+                                        <i class="fas fa-tag"></i> Discount Status
+                                    </div>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default"
+                                               ng-class="{'active': filters.DiscountStatus === null}"
+                                               ng-click="filters.DiscountStatus = (filters.DiscountStatus === null ? null : null)">
+                                            All
+                                        </label>
+                                        <label class="btn btn-default"
+                                               ng-class="{'active': filters.DiscountStatus === 1}"
+                                               ng-click="filters.DiscountStatus = 1">
+                                            Discounted
+                                        </label>
+                                        <label class="btn btn-default"
+                                               ng-class="{'active': filters.DiscountStatus === 0}"
+                                               ng-click="filters.DiscountStatus = 0">
+                                            Non-Discounted
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Filter Actions -->
+                        <div class="filter-actions">
+                            <button type="button" class="btn btn-reset" ng-click="resetFilters()">
+                                <i class="fas fa-undo"></i> Reset Filters
+                            </button>
+                            <button type="button" class="btn btn-apply" ng-click="applyFilters()">
+                                <i class="fas fa-check"></i> Apply Filters
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Product Cards -->
+            <div class="col-md-4 col-sm-6" ng-repeat="product in currentProducts">
+                <div class="product-card"
+                     ng-class="{ 'has-discount': isDiscountActive(product.Discount), 'inactive': !product.IsActive }">
+
+                    <!-- Discount Badge -->
+                    <div class="discount-badge" ng-if="isDiscountActive(product.Discount)">
+                        <span ng-if="product.Discount.DiscountType === 1">
+                            -{{ product.Discount.DiscountValue | currency }}
+                        </span>
+                        <span ng-if="product.Discount.DiscountType === 2">
+                            -{{ product.Discount.DiscountValue }}%
+                        </span>
+                    </div>
+
+                    <div class="product-image-container">
+                        <img ng-src="{{product.ProductImages[0].ImagePath}}" class="product-main-image" alt="{{product.Name}}">
+
+                        <!-- Thumbnails -->
+                        <div class="product-thumbnails" ng-if="product.ProductImages.length > 1">
+                            <img ng-repeat="img in product.ProductImages track by $index"
+                                 ng-src="{{img.ImagePath}}"
+                                 class="thumbnail"
+                                 ng-class="{'active': img.IsMain}"
+                                 ng-click="changeMainImage($event, product, img)"
+                                 alt="Thumbnail {{$index + 1}}">
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <h5 class="product-title">{{product.Name}}</h5>
+
+                        <!-- Price display with active discount -->
+                        <div ng-if="product.Discount !== null && isDiscountActive(product.Discount)">
+                            <span class="original-price">{{product.Price | currency}}</span>
+                            <span class="product-price discount-price">
+                                {{calculateDiscountedPrice(product) | currency}}
+                            </span>
+                        </div>
+
+                        <!-- Regular price display (no discount or inactive discount) -->
+                        <div ng-if="product.Discount === null || !isDiscountActive(product.Discount)">
+                            <span class="product-price">{{product.Price | currency}}</span>
+                        </div>
+
+                        <div class="product-quantity" ng-class="{'in-stock' :product.Quantity > 10, 'low-stock': product.Quantity > 0 && product.Quantity <= 10, 'out-of-stock': product.Quantity <= 0}">
+                            <i class="fa fa-cubes"></i>
+                            {{
+product.Quantity > 10
+    ? (product.Quantity + ' available')
+    : product.Quantity > 0
+        ? ('Only ' + product.Quantity + ' left!')
+        : 'Out of stock'
+                            }}
+                        </div>
+
+                        <div class="product-details">
+                            <div class="product-meta d-flex justify-between" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                <div>
+                                    <span><i class="fa fa-tags"></i> {{product.CategoryName || 'Uncategorized'}}</span><br>
+                                    <span><i class="fa fa-star text-warning"></i> {{getAverageRating(product)}}</span>
+                                    <span style="color: #666; cursor: pointer; text-decoration: underline;"
+                                          ng-click="showReview(product.ProductId)">
+                                        {{product.ProductReviews.length}} Rating(s)
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span ng-if="product.IsActive" class="text-success">
+                                        <i class="fa fa-check-circle"></i> Listed
+                                    </span>
+                                    <span ng-if="!product.IsActive" class="text-danger">
+                                        <i class="fa fa-ban"></i> Unlisted
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- NEW ADD-TO-CART SECTION -->
+                            <div class="cart-controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" ng-click="decrementQuantity(product)">-</button>
+                                    <input type="number" class="quantity-input"
+                                           ng-model="product.selectedQuantity"
+                                           min="1"
+                                           max="{{product.Quantity}}"
+                                           ng-change="validateQuantity(product)">
+                                    <button class="quantity-btn" ng-click="incrementQuantity(product)">+</button>
+                                </div>
+                                <button class="add-to-cart-btn"
+                                        style="position:relative;left:15px;"
+                                        ng-click="addToCart(product)"
+                                        ng-disabled="product.Quantity <= 0 || product.selectedQuantity > product.Quantity">
+                                    <i class="fa fa-shopping-cart"></i> Add
+                                </button>
+                            </div>
+
+                            <div class="action-buttons">
+                                <!-- REMOVED THE EDIT BUTTON -->
+                                <button class="quick-view-btn"
+                                        ng-click="openQuickView(product)">
+                                    <i class="fa fa-eye"></i> Quick View
+                                </button>
+
+                                <!-- Review Button (Tertiary Action) -->
+                                <button class="review-btn"
+                                        ng-click="openReviewModal(product)">
+                                    <i class="far fa-edit"></i> Review
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Empty State -->
+        <div class="row" ng-if="products.length === 0">
+            <div class="col-xs-12">
+                <div class="no-products-message">
+                    <div class="no-products-icon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <h3>No products found</h3>
+                    <p>We couldn't find any products matching your criteria</p>
+                </div>
+            </div>
+        </div>
+        <div class="pagination-container text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" ng-class="{disabled: pages[currentPage-1].isFirst || products.length===0}">
+                        <a class="page-link" href="#" ng-click="showPage(1)">
+                            <i class="fas fa-angle-double-left"></i> <span class="nav-text">First</span>
+                        </a>
+                    </li>
+                    <li class="page-item" ng-class="{disabled: pages[currentPage-1].isFirst || products.length===0}">
+                        <a class="page-link" href="#" ng-click="showPage(currentPage - 1)">
+                            <i class="fas fa-angle-left"></i> <span class="nav-text">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" ng-repeat="page in pages" ng-class="{active: page.title === currentPage}">
+                        <a class="page-link" ng-click="showPage(page.title)">
+                            {{page.title}}
+                        </a>
+                    </li>
+                    <li class="page-item" ng-class="{disabled: currentPage === pages[pages.length - 1].title && pages[pages.length - 1].isLast || products.length===0}">
+                        <a class="page-link" href="#" ng-click="showPage(currentPage + 1)">
+                            <span class="nav-text">Next</span> <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" ng-class="{disabled: currentPage === pages[pages.length - 1].title && pages[pages.length - 1].isLast || products.length===0}">
+                        <a class="page-link" href="#" ng-click="showPage(LastPage)">
+                            <span class="nav-text">Last</span> <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <script>
+    window.userIsLoggedIn = @(User.Identity.IsAuthenticated.ToString().ToLower());
+    </script>
+    <script>
+    var catId = '@ViewBag.CategoryId'; // This will pass the server-side value to the client-side variable
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+﻿<div class="modal-container">
+    <div class="modal-header">
+        <h3>{{scopeModel.modalTitle}}</h3>
+    </div>
+
+    <div class="modal-body">
+        <form name="categoryForm" enctype="multipart/form-data">
+            <!-- Category Name -->
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-tag"></i> Category Name
+                </label>
+                <input type="text" class="form-control" name="name" id="name" style="min-width:100% !important"
+                       ng-model="scopeModel.Name" required>
+                <div class="error-message" ng-show="categoryForm.name.$touched && categoryForm.name.$invalid">
+                    Category name is required
+                </div>
+            </div>
+
+            <!-- Category Description -->
+            <div class="form-group">
+                <label for="description">
+                    <i class="fas fa-align-left"></i> Description
+                </label>
+                <textarea class="form-control" id="description" rows="3" style="min-width:100% !important"
+                          ng-model="scopeModel.Description"></textarea>
+            </div>
+
+            <!-- Category Image -->
+            <div class="form-group file-upload">
+                <label for="photo">
+                    <i class="fas fa-image"></i> Category Image
+                </label>
+                <div ng-if="!imageSrc" class="upload-area" ng-class="{'dragover': dragOver}" ng-click="triggerFileInput()">
+                    <input type="file" id="photo" accept="image/*" style="display: none;" onchange="angular.element(this).scope().previewImage(this)" />
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="upload-hint">Click to browse or drag image here</div>
+                        <div class="file-types">Supports: JPG, PNG, JPEG</div>
+                    </div>
+                </div>
+                <div ng-if="errorMessage" class="error-message">
+                    <i class="error-icon fas fa-exclamation-circle"></i>
+                    <span class="error-text">{{ errorMessage }}</span>
+                </div>
+                <!-- Image Preview -->
+                <div class="image-preview" ng-if="imageSrc">
+                    <div class="preview-header">
+                        <button class="btn-remove" ng-click="removeImage()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <img ng-src="{{imageSrc}}" alt="Preview" class="preview-image">
+                </div>
+            </div>
+
+
+            <category-attribute-grid on-ready="CategoryAttributeGridDirectiveReady"></category-attribute-grid>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-cancel" ng-click="scopeModel.cancel()">
+            <i class="fas fa-times"></i> Cancel
+        </button>
+        <button class="btn btn-save"
+                ng-click="scopeModel.save()"
+                ng-disabled="categoryForm.$invalid || !imageSrc || errorMessage || isCategoryAttributeGridEmpty">
+            <i class="fas fa-check"></i> Save
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Color Variables */
+    :root {
+        --dark-white: #f5f7fa;
+        --darker-white: #e9ecef;
+        --dark-border: #d1d5db;
+        --primary-dark: #2c3e50;
+        --secondary-color: #e74c3c;
+        --text-dark: #374151;
+        --text-light: #6b7280;
+    }
+
+    /* Modal Container */
+    .modal-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        font-size: 125%;
+        background: var(--dark-white);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    /* Header */
+    .modal-header {
+        background: var(--primary-dark);
+        color: white;
+        padding: 12px 16px;
+        font-size: 1.3rem;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Body */
+    .modal-body {
+        padding: 24px;
+        background: var(--dark-white);
+        border-bottom: 1px solid var(--dark-border);
+    }
+
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--dark-border);
+        border-radius: 6px;
+        background: white;
+        transition: border-color 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-dark);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+    /* File Upload */
+    .upload-area {
+        border: 2px dashed var(--dark-border);
+        padding: 24px;
+        text-align: center;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: var(--darker-white);
+    }
+
+        .upload-area:hover {
+            border-color: var(--primary-dark);
+            background: var(--dark-white);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary-dark);
+            background: var(--darker-white);
+        }
+
+    .upload-content {
+        margin-top: 12px;
+        color: var(--text-light);
+    }
+
+    .upload-hint {
+        font-size: 15.2px;
+        margin-bottom: 6px;
+    }
+
+    .file-types {
+        font-size: 13.6px;
+        color: var(--text-light);
+    }
+
+    /* Image Preview */
+    .image-preview {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        background: var(--darker-white);
+        border: 1px solid var(--dark-border);
+    }
+
+    .preview-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-remove {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        cursor: pointer;
+        font-size: 16px;
+        transition: color 0.2s;
+    }
+
+        .btn-remove:hover {
+            color: var(--secondary-color);
+        }
+
+    .preview-image {
+        max-width: 100%;
+        max-height: 300px;
+        display: block;
+        margin: 12px auto 0;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    .modal-footer {
+        padding: 16px 24px;
+        background: var(--darker-white);
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-cancel {
+        background: var(--dark-white);
+        color: var(--text-dark);
+        border: 1px solid var(--dark-border);
+    }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+        }
+
+    .btn-save {
+        background: var(--primary-dark);
+        color: white;
+        border: 1px solid var(--primary-dark);
+    }
+
+        .btn-save:hover:not(:disabled) {
+            background: #34495e;
+            transform: translateY(-1px);
+        }
+
+        .btn-save:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+    /* Error Messages */
+    .error-message {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        margin-top: 8px;
+        border-radius: 6px;
+        background: #fef2f2;
+        border-left: 4px solid #dc2626;
+        color: #dc2626;
+        font-size: 14.4px;
+    }
+
+    .error-icon {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

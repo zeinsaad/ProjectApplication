@@ -1,0 +1,5 @@
+﻿<!-- dataTypeSelector.html -->
+<select required class="form-control" ng-model="selectedDiscountType"
+        ng-options="discount.value as discount.description for discount in discountTypes">
+    <option value=''>-- Select Discount Type --</option>
+</select>

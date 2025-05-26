@@ -1,0 +1,173 @@
+﻿<!-- Category Attributes -->
+<div class="form-group attributes-section">
+    <label class="section-label">
+        <i class="fas fa-cogs"></i> Category Attributes
+    </label>
+
+    <div ng-repeat="attribute in Attributes" class="attribute-group">
+        <div class="attribute-row">
+            <!-- Attribute Name -->
+            <div class="attribute-field">
+                <input type="text" class="form-control attribute-input"
+                       ng-model="attribute.Name"
+                       placeholder="Attribute Name"
+                       required>
+            </div>
+
+            <!-- Attribute Data Type -->
+            <div class="attribute-field">
+                <datatype-selector on-ready="attribute.onDataTypeDirectiveReady"
+                                   on-selection-changed="attribute.onDataTypeSelectionChanged"
+                                   class="datatype-select">
+                </datatype-selector>
+            </div>
+
+            <!-- Attribute Unit (Optional) -->
+            <div class="attribute-field">
+                <input type="text" class="form-control attribute-input"
+                       ng-model="attribute.Unit"
+                       placeholder="Unit (optional)">
+            </div>
+
+            <!-- Remove Button -->
+            <div class="attribute-action">
+                <button type="button" class="btn-remove-attribute"
+                        ng-click="removeAttribute(attribute)"
+                        aria-label="Remove attribute">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Attribute Button -->
+    <button type="button" class="btn-add-attribute" ng-click="addAttribute()">
+        <i class="fas fa-plus-circle"></i> Add Attribute
+    </button>
+</div>
+
+<style>
+    /* Attributes Section */
+    .attributes-section {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e1e1e1;
+    }
+
+    .section-label {
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+        .section-label i {
+            color: #2c3e50;
+            margin-right: 8px;
+        }
+
+    /* Attribute Row */
+    .attribute-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .attribute-field {
+        flex: 1;
+        min-width: 0; /* Prevent flex items from overflowing */
+    }
+
+    .attribute-action {
+        flex: 0 0 40px;
+        text-align: center;
+    }
+
+    /* Input Fields */
+    .attribute-input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .attribute-input:focus {
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+            outline: none;
+        }
+
+    /* Data Type Selector */
+    .datatype-select {
+        width: 100%;
+    }
+
+    /* Buttons */
+    .btn-add-attribute {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+        .btn-add-attribute:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
+        }
+
+        .btn-add-attribute:active {
+            transform: translateY(0);
+        }
+
+    .btn-remove-attribute {
+        background-color: transparent;
+        color: #9ca3af;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .btn-remove-attribute:hover {
+            background-color: #f3f4f6;
+            color: #e74c3c;
+        }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .attribute-row {
+            flex-wrap: wrap;
+        }
+
+        .attribute-field {
+            flex: 1 0 100%;
+            margin-bottom: 8px;
+        }
+
+        .attribute-action {
+            flex: 0 0 100%;
+            text-align: right;
+        }
+    }
+</style>

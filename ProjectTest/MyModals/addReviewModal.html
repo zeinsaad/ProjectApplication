@@ -1,0 +1,117 @@
+﻿<div class="review-modal">
+    <!-- Header -->
+    <div class="modal-header  text-white">
+        <h4 class="modal-title">
+            <i class="fas fa-edit me-2"></i>
+            Review {{product.Name}}
+        </h4>
+        <button type="button" class="btn-close btn-close-white" ng-click="cancel()"></button>
+    </div>
+    <!-- Body -->
+    <div class="modal-body p-4">
+        <div class="review-form">
+            <!-- Rating -->
+            <div class="rating-section mb-4 text-center">
+                <h5 class="mb-3">How would you rate this product?</h5>
+                <div class="star-rating">
+                    <i class="fas fa-star fa-2x rating-star"
+                       ng-repeat="i in [1,2,3,4,5]"
+                       ng-class="{ 'text-warning': i <= (hoverRating || rating), 'text-muted': i > (hoverRating || rating)}"
+                       ng-click="setRating(i)"
+                       ng-mouseenter="setHoverRating(i)"
+                       ng-mouseleave="clearHoverRating()">
+                    </i>
+                </div>
+                <small class="text-muted d-block mt-2">
+                    {{rating || 'Select'}} out of 5 stars
+                </small>
+            </div>
+            <!-- Comment -->
+            <div class="form-group">
+                <label class="form-label">Your Review</label>
+                <textarea class="form-control"
+                          rows="4"
+                          
+                          placeholder="Share your experience with this product..."
+                          ng-model="comment"
+                          style="resize: none;min-width:100% !important"></textarea>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="modal-footer bg-light">
+        <button class="btn btn-outline-secondary me-2"
+                ng-click="cancel()">
+            Cancel
+        </button>
+        <button class="btn btn-primary"
+                ng-click="save()"
+                ng-disabled="!rating || !comment ">
+            <i class="fas fa-paper-plane me-1"></i>
+            Submit Review
+        </button>
+    </div>
+</div>
+<style>
+    .review-modal {
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .modal-header {
+        border-bottom: none;
+        background-color: #2c3e50;
+    }
+
+    .star-rating {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .star-rating i {
+            margin: 0 3px;
+            transition: all 0.2s ease;
+        }
+
+            .star-rating i:hover {
+                transform: scale(1.2);
+            }
+
+    .textarea-counter {
+        font-size: 0.8rem;
+        text-align: right;
+        margin-top: -1.5rem;
+        margin-bottom: 1rem;
+        color: #6c757d;
+    }
+
+    .modal-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #eee;
+    }
+
+    .rating-star {
+        margin: 0 3px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .rating-star:hover {
+            transform: scale(1.1);
+        }
+
+    .text-warning {
+        color: #ffc107 !important; /* Gold/yellow color for selected stars */
+    }
+    .btn-primary {
+        background-color: #e74c3c !important;
+        border-color: #e74c3c !important;
+    }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #e74c3c !important;
+            border-color: #e74c3c !important;
+        }
+</style>

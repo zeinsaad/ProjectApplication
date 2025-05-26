@@ -1,0 +1,236 @@
+﻿<div class="modal-content">
+    <div class="modal-header d-flex justify-content-between align-items-center">
+        <h4 class="modal-title w-100 text-center" style="font-size: 24px; margin: 0;">
+            <span class="glyphicon glyphicon-tag" style="color: #3498db; margin-right: 10px; vertical-align: middle;"></span>
+            <span style="color: #2c3e50; font-weight: 600; vertical-align: middle;">{{parameters.product.Name}}</span>
+        </h4>
+        <button type="button" class="close position-absolute" style="right: 15px; top: 15px;" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" ng-click="cancel()">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="modal-gallery">
+                    <img ng-src="{{parameters.product.ProductImages[currentImageIndex].ImagePath}}"
+                         class="modal-main-image img-responsive"
+                         alt="{{parameters.product.Name}}">
+                    <br />
+                    <div  class="modal-thumbnails" ng-if="parameters.product.ProductImages.length > 1">
+                        <img ng-repeat="img in parameters.product.ProductImages track by $index"
+                             ng-src="{{img.ImagePath}}"
+                             class="modal-thumbnail"
+                             ng-class="{'active': $index === currentImageIndex}"
+                             ng-click="changeModalImage($index)"
+                             alt="Thumbnail {{$index + 1}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <!-- Price Display with Discount Handling -->
+                <div ng-if="isDiscountActive(parameters.product.Discount)" class="discount-price-container" style="margin-bottom: 15px;">
+                    <div style="font-size: 18px; color: #e74c3c; margin-bottom: 5px;">
+                        <span class="label label-danger" style="font-size: 14px; padding: 3px 8px; margin-right: 8px;">
+                            <span ng-if="parameters.product.Discount.DiscountType === 1">SAVE {{parameters.product.Discount.DiscountValue | currency}}</span>
+                            <span ng-if="parameters.product.Discount.DiscountType === 2">SAVE {{parameters.product.Discount.DiscountValue}}%</span>
+                        </span>
+
+                    </div>
+                    <div class="product-price" style="font-size: 24px;">
+                        <span class="original-price" style="text-decoration: line-through; color: #999; margin-right: 8px;">
+                            {{parameters.product.Price | currency}}
+                        </span>
+                        <span class="discount-price" style="color: #e74c3c;">
+                            {{calculateDiscountedPrice(parameters.product) | currency}}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Regular Price Display -->
+                <div ng-if="!isDiscountActive(parameters.product.Discount)" class="product-price" style="font-size: 24px; margin-bottom: 15px;">
+                    {{parameters.product.Price | currency}}
+                </div>
+
+                <p class="product-description">{{parameters.product.Description}}</p>
+
+                <!-- Product Attributes Section -->
+                <div class="product-attributes" ng-if="parameters.product.ProductAttributes && parameters.product.ProductAttributes.length > 0">
+                    <h4><span class="glyphicon glyphicon-list-alt"></span> Specifications</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <tbody>
+                                <tr ng-repeat="attr in parameters.product.ProductAttributes">
+                                    <td style="width: 40%; font-weight: bold;">{{attr.CategoryAttribute || 'Attribute'}}</td>
+                                    <td style="width: 60%;">
+                                        <span ng-if="isIsoDate(attr.Value)">
+                                            {{attr.Value | date:'dd-MM-yyyy'}}
+                                        </span>
+                                        <span ng-if="!isIsoDate(attr.Value)">
+                                            {{attr.Value}}
+                                        </span>
+                                        <span ng-if="attr.Unit" class="text-muted"> ({{attr.Unit}})</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <!-- Product Status Section -->
+                <div class="product-status" style="margin: 20px 0;">
+                    <div class="status-item" style="margin-bottom: 10px;">
+                        <strong style="font-size: 16px;">Status: </strong>
+                        <span ng-if="parameters.product.IsActive" class="text-success" style="font-size: 16px;">
+                            <span class="glyphicon glyphicon-ok"></span> Listed
+                        </span>
+                        <span ng-if="!parameters.product.IsActive" class="text-danger" style="font-size: 16px;">
+                            <span class="glyphicon glyphicon-remove"></span> Not Listed
+                        </span>
+                    </div>
+
+                    <div class="stock-info" style="display: flex; gap: 15px;">
+                        <div>
+                            <strong style="font-size: 16px;">Stock: </strong>
+                            <span ng-class="{'text-success': parameters.product.Quantity > 0, 'text-danger': parameters.product.Quantity <= 0}"
+                                  style="font-size: 16px;">
+                                {{parameters.product.Quantity > 0 ? 'In Stock' : 'Out of Stock'}}
+                            </span>
+                        </div>
+                        <div ng-if="parameters.product.Quantity > 0">
+                            <strong style="font-size: 16px;">Quantity: </strong>
+                            <span style="font-size: 16px;">{{parameters.product.Quantity}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-rating">
+                    <span><i class="fa fa-star text-warning"></i> {{getAverageRating(parameters.product)}}</span>
+                    <span class="text-muted">({{parameters.product.ProductReviews.length}} reviews)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Main Image Styling */
+    .modal-main-image {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        padding: 8px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+    }
+
+        .modal-main-image:hover {
+            border-color: #3498db;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+    /* Thumbnail Container */
+    .modal-thumbnails {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px;
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-top: 10px;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        position: relative;
+    }
+
+    /* Individual Thumbnails */
+    .modal-thumbnail {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        padding: 3px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        opacity: 1;
+    }
+
+        .modal-thumbnail:hover {
+            border-color: #3498db;
+            opacity: 1;
+        }
+
+        /* Active Thumbnail */
+        .modal-thumbnail.active {
+            border: 2px solid #3498db;
+            opacity: 1;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            position: relative;
+        }
+
+            .modal-thumbnail.active::after {
+                content: "";
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 60%;
+                height: 2px;
+                background: #3498db;
+                border-radius: 2px;
+            }
+    /* Product Attributes Styling */
+    .product-attributes {
+        margin: 20px 0;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+        .product-attributes h4 {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .product-attributes table {
+            margin-bottom: 0;
+        }
+
+            .product-attributes table td {
+                vertical-align: middle;
+                padding: 8px 12px;
+            }
+
+            .product-attributes table tr:nth-child(odd) {
+                background-color: #f9f9f9;
+            }
+
+    /* Status Section Styling */
+    .product-status {
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+    .status-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Discount Styling */
+    .discount-price-container {
+        background-color: #fff9f9;
+        padding: 5px;
+        border-radius: 4px;
+        border-left: 3px solid #e74c3c;
+    }
+</style>

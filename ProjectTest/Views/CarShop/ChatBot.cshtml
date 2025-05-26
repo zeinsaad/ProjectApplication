@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "ChatBot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en" ng-app="Ecommerce">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Chatbot</title>
+
+    <script src="~/libs/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="~/libs/bootstrap.min.css">
+    <script src="~/libs/angular.min.js"></script>
+    <script src="~/libs/ui-bootstrap-tpls.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/libs/test/all.min.css">
+
+    <!-- App scripts -->
+    <script src="/MyScripts/ShopPage/ShopPageCtrl.js"></script>
+    <script src="~/MyScripts/Bot/BotManagementController.js"></script>
+    <script src="/MyScripts/ShopPage/CheckoutController.js"></script>
+    <script src="~/MyServices/Shop/ShopService.js"></script>
+    <script src="/MyServices/Modals/modalService.js"></script>
+    <script src="/MyScripts/Authentication/AuthenticationCtrl.js"></script>
+    <script src="/MyServices/Cart/CartService.js"></script>
+    <script src="/MyConstant/DiscountTypeCT.js"></script>
+    <script src="/MyDirectives/discountTypeSelector/discountTypeSelector.js"></script>
+    <script src="/MyDirectives/attributeSelector/attributeSelector.js"></script>
+    <script src="/MyDirectives/categorySelector/categorySelector.js"></script>
+    <script src="/MyDirectives/ProductAttributeGrid/productAttributeGrid.js"></script>
+    <script src="/MyScripts/Products/ProductEditorCtrl.js"></script>
+    <script src="/MyScripts/Products/ProductQuickViewCtrl.js"></script>
+    <script src="/MyScripts/ShopPage/ReviewController.js"></script>
+    <script src="/MyScripts/ShopPage/GetReviewCtrl.js"></script>
+
+    <script src="/MyServices/Product/ProductWebApiService.js"></script>
+    <script src="/MyServices/Category/CategoryWebApiService.js"></script>
+    <script src="/MyServices/Product/ProductService.js"></script>
+    <script src="/MyServices/Shop/ShopWebApiService.js"></script>
+
+    <script src="/MyServices/Authentication/AuthenticationService.js"></script>
+    <script src="/MyScripts/Authentication/AuthenticationCtrl.js"></script>
+
+
+    <script src="/MyServices/WebApi/WebApiService.js"></script>
+    <script src="/MyScripts/Category/CategoryEditorCtrl.js"></script>
+    <script src="/MyServices/Category/CategoryService.js"></script>
+    <script src="/MyServices/Pagination/PaginationService.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI';
+        }
+
+        chat-body {
+            font-family: 'Inter', 'Segoe UI', Roboto, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .chat-container {
+            width: 100%;
+            min-width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-messages {
+            height: 350px;
+            background-color: #ffffff;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 80%;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 18px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #2c3e50;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #f1f1f1;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            background-color: #ffffff;
+            padding: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            min-width: 92%;
+        }
+
+        .send-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 16px;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+            .send-button:hover {
+                background-color: #c0392b;
+            }
+
+            .send-button:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+
+        .timestamp {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .bot-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .bot-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-self: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #999;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+            .typing-dot:nth-child(1) {
+                animation-delay: 0s;
+            }
+
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+        @@keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* New styles for suggestions */
+        .suggestions-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .suggestion-chip {
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+            .suggestion-chip:hover {
+                background-color: #2c3e50;
+                color: white;
+            }
+
+        .suggestions-title {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body ng-controller="ChatBotController">
+    <div class="chat-body">
+        <div class="chat-container">
+            <div class="bot-header">
+                <div class="bot-avatar">B</div>
+                <div>Customer Support</div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Initial bot message -->
+                <div class="message bot-message">
+                    Hello! How can I assist you today?
+                    <div class="timestamp">{{getCurrentTime() | date:'h:mm a'}}</div>
+                </div>
+
+                <!-- Messages displayed sequentially -->
+                <div class="message" ng-repeat="message in messages track by $index"
+                     ng-class="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+                    <span ng-bind-html="message.text"></span>
+                    <div class="timestamp">{{message.timestamp | date:'h:mm a'}}</div>
+                </div>
+
+                <!-- Typing indicator -->
+                <div class="typing-indicator" ng-show="isTyping">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <!-- Suggestions bar -->
+            <div class="suggestions-container" ng-show="allSuggestions.length > 0 && !isTyping && messages.length < 2">
+                <div class="suggestions-title">Suggested questions:</div>
+                <div class="suggestion-chip" ng-repeat="suggestion in allSuggestions"
+                     ng-click="selectSuggestion(suggestion)">
+                    {{suggestion.text}}
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" ng-model="newMessage" placeholder="Type your message..."
+                       ng-keyup="$event.keyCode === 13 && sendMessage()" >
+                <button class="send-button" ng-click="sendMessage()" ng-disabled="!newMessage || isTyping">Send</button>
+            </div>
+        </div>
+    </div>
+  
+</body>
+</html>

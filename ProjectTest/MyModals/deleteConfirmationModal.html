@@ -1,0 +1,44 @@
+﻿
+    <div class="modal-header">
+        <h3 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete the category <strong>{{category.Name}}</strong>?</p>
+        <p class="text-danger"><i class="fas fa-exclamation-circle"></i> This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger" ng-click="Delete()">
+            <i class="fas fa-trash-alt"></i> Delete
+        </button>
+    </div>
+
+
+<style>
+    .delete-confirmation-modal .modal-header {
+        background-color: #e74c3c;
+        color: white;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .delete-confirmation-modal .modal-body {
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .delete-confirmation-modal .modal-footer {
+        border-top: none;
+        padding: 15px 20px;
+    }
+
+    .delete-confirmation-modal .btn-cancel {
+        background-color: #95a5a6;
+        border-color: #95a5a6;
+        color: white;
+    }
+
+        .delete-confirmation-modal .btn-cancel:hover {
+            background-color: #7f8c8d;
+            border-color: #7f8c8d;
+        }
+</style>

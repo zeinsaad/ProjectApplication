@@ -1,0 +1,708 @@
+﻿<div class="modal-header">
+    <h3>{{modalTitle}}</h3>
+    <button class="close-btn" ng-click="cancel()">&times;</button>
+</div>
+
+<div class="modal-body">
+    <form name="productForm" novalidate class="product-form">
+        <!-- Section 1: Core Product Info -->
+        <fieldset class="form-section">
+            <legend><i class="fas fa-info-circle"></i> Basic Information</legend>
+            <div class="form-row">
+                <div class="form-group required">
+                    <label for="productName"><i class="fas fa-tag"></i> Product Name</label>
+                    <input type="text" id="productName" class="form-control" ng-model="Name" required>
+                    <div class="validation-error" ng-show="productForm.productName.$touched && productForm.productName.$invalid">
+                        <i class="fas fa-exclamation-circle"></i> Product name is required
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    <label for="productCategory"><i class="fas fa-folder"></i> Category</label>
+                    <category-selector on-ready="onCategorySelectorDirectiveReady" on-selection-changed="onCategorySelectorChange"></category-selector>
+                    <div class="validation-error" ng-show="productForm.productCategory.$touched && productForm.productCategory.$invalid">
+                        <i class="fas fa-exclamation-circle"></i> Category is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription"><i class="fas fa-align-left"></i> Description</label>
+                <textarea id="productDescription" class="form-control" rows="4" ng-model="Description" placeholder="Provide detailed product description..."></textarea>
+            </div>
+        </fieldset>
+
+        <!-- Section 2: Pricing & Inventory -->
+        <fieldset class="form-section">
+            <legend><i class="fas fa-dollar-sign"></i> Pricing & Inventory</legend>
+            <div class="form-row">
+                <div class="form-group required">
+                    <label for="productPrice"><i class="fas fa-tag"></i> Price</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                        <input type="number" id="productPrice" class="form-control" ng-model="Price" min="0" step="0.01" required placeholder="0.00">
+                    </div>
+                    <div class="validation-error" ng-show="productForm.productPrice.$touched && productForm.productPrice.$invalid">
+                        <i class="fas fa-exclamation-circle"></i> Valid price is required
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    <label for="productQuantity"><i class="fas fa-boxes"></i> Stock Quantity</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="number" id="productQuantity" class="form-control" ng-model="Quantity" min="0" required>
+                    </div>
+                    <div class="validation-error" ng-show="productForm.productQuantity.$touched && productForm.productQuantity.$invalid">
+                        <i class="fas fa-exclamation-circle"></i> Valid quantity is required
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <product-attribute-grid on-ready="onProductAttributeGridReady"></product-attribute-grid>
+        <!-- Add this right after the Pricing & Inventory section -->
+        <fieldset class="form-section">
+            <legend><i class="fas fa-percentage"></i> Discount Settings</legend>
+
+            <div class="form-group">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="hasDiscount" ng-model="hasDiscount" ng-change="toggleDiscount()" class="toggle-input">
+                    <label for="hasDiscount" class="toggle-label">
+                        <span class="toggle-text">{{hasDiscount ? 'Discount Enabled' : 'No Discount'}}</span>
+                        <span class="toggle-handle"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div ng-if="hasDiscount" class="discount-fields" style="margin-top: 15px;">
+                <div class="discount-status" ng-if="discount.DiscountStartDate && discount.DiscountEndDate" style="margin-top: 10px;">
+                    <div class="alert alert-warning" ng-if="today < discount.DiscountStartDate">
+                        <i class="fas fa-clock"></i> The discount hasn't started yet. It will start on {{discount.DiscountStartDate | date:'medium'}}.
+                    </div>
+                    <div class="alert alert-danger" ng-if="today > discount.DiscountEndDate">
+                        <i class="fas fa-exclamation-triangle"></i> The discount has expired on {{discount.DiscountEndDate | date:'medium'}}.
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group required" ng-if="hasDiscount">
+                        <label><i class="fas fa-tag"></i> Discount Type</label>
+                        <discount-type-selector on-ready="onDiscountTypeSelectorReady"
+                                                on-selection-changed="onDiscountSelectionChanged">
+
+                        </discount-type-selector>
+                    </div>
+
+                    <div class="form-group required">
+                        <label>
+                            <i class="fas" ng-class="{'fa-dollar-sign': discount.DiscountType === 1, 'fa-percent': discount.DiscountType === 2}"></i>
+                            Discount Value
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-addon" ng-if="discount.DiscountType === 2">%</span>
+                            <span class="input-group-addon" ng-if="discount.DiscountType === 1">$</span>
+                            <input type="number" class="form-control" ng-model="discount.DiscountValue"
+                                   min="0" step="{{discount.DiscountType === 2 ? '1' : '0.01'}}"
+                                   ng-max="discount.DiscountType === 2 ? 100 : null"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Start Date</label>
+                        <input type="datetime-local" class="form-control"
+                               ng-model="discount.DiscountStartDate"
+                               >
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> End Date</label>
+                        <input type="datetime-local" class="form-control"
+                               ng-model="discount.DiscountEndDate"
+                               min="{{discount.DiscountStartDate || today | date:'yyyy-MM-ddTHH:mm'}}">
+                    </div>
+                </div>
+
+                <div class="calculated-price" ng-if="discount.DiscountValue" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                    <strong>Price After Discount:</strong>
+                    <span ng-if="discount.DiscountType === 1" style="color: #e74c3c; font-weight: bold;">
+                        {{(Price - discount.DiscountValue) | currency}}
+                    </span>
+                    <span ng-if="discount.DiscountType === 2" style="color: #e74c3c; font-weight: bold;">
+                        {{(Price * (1 - discount.DiscountValue/100)) | currency}} ({{discount.DiscountValue}}% off)
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+        <!-- Section 3: Status & Images -->
+        <fieldset class="form-section">
+            <legend><i class="fas fa-cog"></i> Settings & Media</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-toggle-on"></i> Product Status</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="productActive" ng-model="IsActive" class="toggle-input">
+                        <label for="productActive" class="toggle-label">
+                            <span class="toggle-text">{{IsActive ? 'Active' : 'Inactive'}}</span>
+                            <span class="toggle-handle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-images"></i> Product Images (Max 4)</label>
+                <div class="image-upload-container">
+                    <div class="upload-box" ng-show="photos.length<4" ng-click="triggerFileInput()" ng-class="{'dragover': isDragging}" ng-drop="onDrop($event)" ng-dragover="onDragOver($event)" ng-dragleave="onDragLeave($event)">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images or <strong>browse</strong></p>
+                        <small>Supports: JPG, PNG and JPEG (Max 2MB each)</small>
+                        <input type="file" id="photo" accept="image/*" style="display: none;" ng-disabled="photos.length > 4" ng-model="scopeModel.Images" onchange="angular.element(this).scope().uploadImages(this)" multiple #fileInput>
+                    </div>
+
+                    <div class="preview-grid" ng-if="photos.length > 0">
+                        <div class="preview-card" ng-repeat="photo in photos track by $index">
+                            <div class="preview-image-container">
+                                <img ng-src="{{photo}}" alt="Uploaded image {{$index + 1}}">
+
+                                <div class="preview-overlay">
+                                    <button class="btn-icon remove-btn" ng-click="removePhoto($index)" title="Remove image">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="btn-icon set-main-btn" ng-click="setAsMain($index)" title="Set as main image" ng-if="$index > 0">
+                                        <i class="fas fa-star"></i>
+                                    </button>
+                                    <span class="main-badge" ng-if="$index === 0">Main</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="errorMessage" class="error-message">
+                        <i class="error-icon fas fa-exclamation-circle"></i>
+                        <span class="error-text">{{ errorMessage }}</span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-outline" ng-click="cancel()">
+        <i class="fas fa-times"></i> Cancel
+    </button>
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="productForm.$invalid || !nbOfPhotos || disable ">
+        <i class="fas fa-save"></i> {{isSaving ? 'Saving...' : 'Save Product'}}
+    </button>
+</div>
+
+<style>
+    /* Base Styles */
+    .product-editor-modal {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+        color: white;
+        padding: 22px 28px; /* Increased padding */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Added subtle shadow */
+        border-bottom: 1px solid rgba(255,255,255,0.1); /* Subtle separation */
+    }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 2.0rem; /* Larger font */
+            font-weight: 600;
+            letter-spacing: 0.5px; /* Improved readability */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Depth effect */
+            flex-grow: 1; /* Ensures title takes available space */
+        }
+
+    .close-btn {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: white;
+        font-size: 2.4rem; /* Larger close button */
+        cursor: pointer;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        margin-left: 15px; /* Added spacing */
+    }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+    .modal-body {
+        padding: 25px;
+    }
+
+    /* Form Structure */
+    .product-form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .form-section {
+        border: 1px solid #e1e5eb;
+        border-radius: 8px;
+        padding: 20px;
+        background: #f9fafc;
+    }
+
+        .form-section legend {
+            padding: 0 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+            .form-section legend i {
+                margin-right: 8px;
+                color: #3498db;
+            }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .form-group.required label:after {
+            content: '*';
+            color: #e74c3c;
+            margin-left: 4px;
+        }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 0.95rem;
+    }
+
+        label i {
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+    .form-control {
+        width: auto;
+        padding: 12px 15px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.2s;
+        background: white;
+    }
+
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            outline: none;
+        }
+
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .input-with-icon input {
+            padding-left: 35px;
+        }
+
+    /* Toggle Switch */
+    .toggle-switch {
+        margin-top: 8px;
+    }
+
+    .toggle-input {
+        display: none;
+    }
+
+    .toggle-label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 10px;
+    }
+
+    .toggle-text {
+        font-size: 0.9rem;
+        color: #2c3e50;
+        min-width: 50px;
+    }
+
+    .toggle-handle {
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+        background: #ddd;
+        border-radius: 13px;
+        position: relative;
+        transition: all 0.2s;
+    }
+
+        .toggle-handle:after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+    .toggle-input:checked + .toggle-label .toggle-handle {
+        background: #27ae60;
+    }
+
+        .toggle-input:checked + .toggle-label .toggle-handle:after {
+            transform: translateX(24px);
+        }
+
+    /* Image Upload Section */
+    .image-upload-container {
+        margin-top: 10px;
+    }
+
+    .upload-box {
+        border: 2px dashed #3498db;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: center;
+        cursor: pointer;
+        background-color: #f8fafd;
+        transition: all 0.2s;
+        margin-bottom: 15px;
+    }
+
+        .upload-box.dragover {
+            background-color: #ebf5ff;
+            border-color: #2980b9;
+        }
+
+        .upload-box i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .upload-box p {
+            margin: 5px 0;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .upload-box small {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+
+    /* Image Preview Grid */
+    .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .preview-card {
+        position: relative;
+        border-radius: 6px;
+        overflow: hidden;
+        height: 120px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .preview-image-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+        .preview-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    .preview-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .preview-card:hover .preview-overlay {
+        opacity: 1;
+    }
+
+    .btn-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255,255,255,0.9);
+        color: #2c3e50;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 3px;
+        transition: all 0.2s;
+    }
+
+        .btn-icon:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+    .remove-btn {
+        color: #e74c3c;
+    }
+
+    .set-main-btn {
+        color: #f39c12;
+    }
+
+    .main-badge {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background: #27ae60;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        font-weight: bold;
+    }
+
+    /* Validation */
+    .validation-error {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+        .validation-error i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+    /* Footer */
+    .modal-footer {
+        padding: 15px 25px;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: flex-end;
+        border-top: 1px solid #e1e5eb;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+    .btn-primary {
+        background: #2c3e50;
+        color: white;
+        border-color: #2c3e50;
+    }
+
+        .btn-primary:hover {
+            background: #1a252f;
+            border-color: #1a252f;
+        }
+
+        .btn-primary:disabled {
+            background: #95a5a6;
+            border-color: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+    .btn-outline {
+        background: transparent;
+        color: #2c3e50;
+        border-color: #bdc3c7;
+    }
+
+        .btn-outline:hover {
+            background: #f1f1f1;
+        }
+
+    /* Add these font-size overrides at the END of your existing style section */
+    /* This way they'll override any previous font sizes without losing other styles */
+
+    /* Base font increase */
+    .modal-body {
+        font-size: 1.8rem; /* Increased from ~1.1rem */
+        line-height: 1.6;
+    }
+
+    /* Header */
+    .modal-header h3 {
+        font-size: 2.2rem; /* Increased from 1.4rem */
+    }
+
+    /* Form labels */
+    .form-group label {
+        font-size: 1.6rem; /* Increased from 0.95rem */
+    }
+
+    /* Input fields */
+    .form-control {
+        font-size: 1.6rem; /* Increased from 1rem */
+        padding: 14px 16px; /* Slightly increased padding to match */
+    }
+
+    /* Buttons */
+    .btn {
+        font-size: 1.6rem; /* Increased from 0.95rem */
+        padding: 12px 22px; /* Adjusted padding */
+    }
+
+    /* Image upload text */
+    .upload-box p {
+        font-size: 1.6rem; /* Increased from 1rem */
+    }
+
+    .upload-box small {
+        font-size: 1.3rem; /* Increased from 0.85rem */
+    }
+
+    /* Toggle switch text */
+    .toggle-text {
+        font-size: 1.5rem; /* Increased from 0.9rem */
+    }
+
+    /* Validation messages */
+    .validation-error {
+        font-size: 1.4rem; /* Increased from 0.85rem */
+    }
+
+    /* Section legends */
+    .form-section legend {
+        font-size: 1.8rem; /* Increased from 1.1rem */
+    }
+
+    .error-message {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        border-radius: 4px;
+        background-color: #fef2f2;
+        border-left: 4px solid #dc2626;
+        color: #dc2626;
+        font-size: 14px;
+        line-height: 1.5;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .error-icon {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .error-text {
+        flex: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .modal-body {
+            font-size: 1.6rem;
+        }
+
+        .modal-header h3 {
+            font-size: 2.0rem;
+        }
+
+        .form-group label {
+            font-size: 1.4rem;
+        }
+
+        .form-control {
+            font-size: 1.4rem;
+        }
+    }
+
+   
+</style>

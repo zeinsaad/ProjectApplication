@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html ng-app="Ecommerce">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - PremiumStore</title>
+
+
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- jQuery (needed for Bootstrap 4) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- Bootstrap 3 CSS (you're actually using Bootstrap 3.3.7) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- AngularJS (must come before ui-bootstrap) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+    <!-- Angular UI Bootstrap (depends on AngularJS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+
+    <style>
+        :root {
+            --primary-color: #2c3e50 !important;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50 !important;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Optional, only needed if you have overlapping elements */
+            
+        }
+
+        .header-main {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+            .logo span {
+                color: #2c3e50;
+            }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+            .user-actions a {
+                color: var(--dark-color);
+                margin-left: 15px;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+                .user-actions a:hover {
+                    color: var(--secondary-color);
+                }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background-color: #e74c3c;
+        }
+
+            .main-nav .nav-link {
+                color: white;
+                font-weight: 500;
+                padding: 10px 15px;
+                text-transform: uppercase;
+                font-size: 13px;
+            }
+
+                .main-nav .nav-link:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+        /* Footer Styles */
+        .main-footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 15px;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+            .footer-logo span {
+                color: var(--secondary-color);
+            }
+
+        .footer-links h5 {
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+            .footer-links a:hover {
+                color: white;
+            }
+
+        .social-icons a {
+            color: white;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            margin-top: 25px;
+            color: #bdc3c7;
+            font-size: 12px;
+        }
+
+        .auth-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .log-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .auth-button:hover {
+            background-color: #c0392b;
+            color: white;
+        }
+
+            .auth-button i {
+                margin-right: 5px;
+            }
+        .main-nav .nav-link {
+            text-decoration: none !important; /* Removes underline */
+        }
+
+        /* For the footer links */
+        .footer-links a {
+            text-decoration: none !important;
+        }
+        /* Active page style */
+        .main-nav .nav-item.active .nav-link {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-bottom: 3px solid white;
+        }
+
+        /* For footer links if needed */
+        .footer-links a.active {
+            color: white !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        @{
+            var isAdmin = false;
+            string userName = "";
+            string userRole="";
+
+            if (User.Identity.IsAuthenticated && User.Identity is System.Web.Security.FormsIdentity formsIdentity)
+            {
+                var ticket = formsIdentity.Ticket;
+                var userData = ticket.UserData; // e.g., "1|Zein Saad"
+                var dataParts = userData.Split('|');
+
+                if (dataParts.Length >= 2)
+                {
+                    var roleString = dataParts[0];
+
+                    userName = dataParts[1]; // Get the full name
+
+                    if (int.TryParse(roleString, out int role) && role == 1)
+                    {
+                        isAdmin = true;
+                        userRole = "ADMIN";
+                    }
+                    else
+                    {
+                        userRole = "USER";
+                    }
+                }
+            }
+        }
+
+        <div class="header-main">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="logo">Premium<span>Store</span></div>
+                    </div>
+
+
+
+                    <!-- Cart Section -->
+                    <div class="col-md-9 user-actions text-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+
+                            <span style="color: var(--dark-color); margin-right: 15px; font-size: 14px;">
+                                <i class="fas fa-user" style="margin-right: 5px;"></i>@userName | @userRole
+                            </span>
+                            <button ng-click="logout()" class="auth-button">
+                                <i class="fas fa-sign-out-alt"></i>Logout
+                            </button>
+                        }
+                        else
+                        {
+                            <button ng-click="login()" class="auth-button">
+                                <i class="fas fa-sign-in-alt"></i>Login
+                            </button>
+
+                        }
+
+                        @{
+                            var currentController = ViewContext.RouteData.Values["Controller"].ToString();
+                            var currentAction = ViewContext.RouteData.Values["Action"].ToString();
+                        }
+
+                        @if (currentController == "CarShop" && currentAction == "ShopPage")
+                        {
+                            <div class="cart-icon" ng-click="viewCart()" style="margin-left: 15px;">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count" ng-if="cartCount > 0">{{cartCount}}</span>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark main-nav">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav me-auto">
+
+
+
+                        @if (isAdmin)
+                        {
+
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Category" ? "active" : "")">
+                                @Html.ActionLink("Category", "Category", "AdminDashboard", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Product" ? "active" : "")">
+                                @Html.ActionLink("Product", "Product", "AdminDashboard", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Order" ? "active" : "")">
+                                @Html.ActionLink("Orders", "Order", "AdminDashboard", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Users" ? "active" : "")">
+                                @Html.ActionLink("Users", "Users", "AdminDashboard", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Reports" ? "active" : "")">
+                                @Html.ActionLink("Reports", "Reports", "AdminDashboard", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "CarShop" ? "active" : "")">
+                                <a class="nav-link" href="@Url.Action("Index", "CarShop")">Home</a>
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "ShopPage" ? "active" : "")">
+                                @Html.ActionLink("Store", "ShopPage", "CarShop", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "MyOrders" ? "active" : "")">
+                                @Html.ActionLink("My Orders", "MyOrders", "CarShop", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "ChatBot" ? "active" : "")">
+                                @Html.ActionLink("AutoBot", "ChatBot", "CarShop", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+
+                            <!-- Other menu items -->
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container body-content py-3">
+        @RenderBody()
+    </div>
+    <!-- Simple Footer -->
+    <!-- Dark Themed Footer -->
+    <footer class="main-footer" style="background-color: var(--dark-color); color: #ecf0f1; padding: 30px 0 20px;">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Info -->
+                <div class="col-md-5 mb-4 mb-md-0">
+                    <div style="font-size: 22px; font-weight: 700; color: white; margin-bottom: 15px;">
+                        Premium<span style="color: var(--secondary-color);">Store</span>
+                    </div>
+                    <p style="color: #bdc3c7; font-size: 13px; margin-top: 15px; line-height: 1.5;">
+                        Your trusted destination for quality products and exceptional service since 2023.
+                    </p>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 15px; text-transform: uppercase;">
+                        Contact Us
+                    </h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px; color: #bdc3c7; font-size: 13px;">
+                            <i class="fas fa-map-marker-alt" style="margin-right: 8px; width: 16px; color: var(--secondary-color);"></i>
+                            Beirut , Lebanon
+                        </li>
+                        <li style="margin-bottom: 8px; color: #bdc3c7; font-size: 13px;">
+                            <i class="fas fa-phone" style="margin-right: 8px; width: 16px; color: var(--secondary-color);"></i>
+                            +961 76354954
+                        </li>
+                        <li style="margin-bottom: 8px; color: #bdc3c7; font-size: 13px;">
+                            <i class="fas fa-envelope" style="margin-right: 8px; width: 16px; color: var(--secondary-color);"></i>
+                            info@premiumstore.com
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Social & Newsletter -->
+                <div class="col-md-3">
+                    <h5 style="color: white; font-size: 14px; font-weight: 600; margin-bottom: 15px; text-transform: uppercase;">
+                        Stay Connected
+                    </h5>
+                    <div class="social-icons" style="margin-bottom: 20px;">
+                        <a href="#" style="color: #bdc3c7; margin-right: 12px; font-size: 16px; transition: color 0.3s;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" style="color: #bdc3c7; margin-right: 12px; font-size: 16px; transition: color 0.3s;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" style="color: #bdc3c7; margin-right: 12px; font-size: 16px; transition: color 0.3s;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" style="color: #bdc3c7; font-size: 16px; transition: color 0.3s;">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row" style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <div class="col-md-12 text-center">
+                    <p style="color: #95a5a6; font-size: 12px; margin: 0;">
+                        &copy; @DateTime.Now.Year PremiumStore. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

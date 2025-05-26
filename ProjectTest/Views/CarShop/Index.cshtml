@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="Ecommerce">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoParts Hub - Premium Car Parts</title>
+    <script src="~/libs/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="~/libs/bootstrap.min.css">
+    <script src="~/libs/angular.min.js"></script>
+    <script src="~/libs/ui-bootstrap-tpls.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/libs/test/all.min.css">
+
+
+    <script src="~/MyScripts/Home/HomeController.js"></script>
+    <script src="~/MyScripts/Authentication/AuthenticationCtrl.js"></script>
+    <script src="~/MyServices/WebApi/WebApiService.js"></script>
+    <script src="~/MyServices/Modals/modalService.js"></script>
+    <script src="~/MyServices/Category/CategoryWebApiService.js"></script>
+    <script src="~/MyServices/Authentication/AuthenticationService.js"></script>
+    <script src="~/MyServices/Pagination/PaginationService.js"></script>
+
+
+
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+
+
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+            .user-actions a {
+                color: var(--dark-color);
+                margin-left: 15px;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+                .user-actions a:hover {
+                    color: var(--secondary-color);
+                }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background-color: #e74c3c;
+        }
+
+            .main-nav .nav-link {
+                color: white;
+                font-weight: 500;
+                padding: 10px 15px;
+                text-transform: uppercase;
+                font-size: 13px;
+            }
+
+                .main-nav .nav-link:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            width: 99.5vw; /* Full viewport width */
+            margin-left: calc(-50vw + 50%); /* Counteracts any body padding/margin */
+            position: relative; /* Needed for proper positioning */
+            left: 0;
+            margin-top: 0 !important;
+        }
+
+
+
+        .hero-content {
+            max-width: 100%; /* Optional: Limits content width */
+            padding: 0 20px; /* Optional: Adds some side padding to content */
+        }
+
+            .hero-content h1 {
+                font-size: 2.8rem; /* 44-48px depending on base */
+                font-weight: 700;
+                line-height: 1.2;
+                margin-bottom: 1.5rem;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                letter-spacing: -0.5px;
+            }
+
+            .hero-content p {
+                font-size: 1.25rem; /* 20px */
+                line-height: 1.6;
+                margin-bottom: 2rem;
+                max-width: 600px;
+                opacity: 0.9;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .btn:hover {
+                background-color: #c0392b;
+                transform: translateY(-2px);
+                color:white;
+            }
+
+        /* Categories Section */
+        .categories-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+            .categories-title h2 {
+                font-size: 36px;
+                color: #2c3e50;
+                margin-bottom: 15px;
+            }
+
+            .categories-title p {
+                color: #7f8c8d;
+                font-size: 18px;
+            }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            border: 1px solid #e74c3c;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+            .category-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            }
+
+        .category-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+            .category-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transition: transform 0.5s;
+            }
+
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+
+        .category-content {
+            padding: 20px;
+            flex: 1; /* Takes remaining space */
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+            .category-content h3 {
+                font-size: 22px;
+                margin-bottom: 10px;
+                color: #2c3e50;
+            }
+
+            .category-content p {
+                color: #7f8c8d;
+                margin-bottom: 20px;
+                line-height: 1.5;
+                flex-grow: 1;
+            }
+
+        .btn-outline {
+            margin-top: auto; /* Forces button to stick to bottom */
+            align-self: flex-start; /* Optional: Align left (or use 'center'/'flex-end') */
+            padding: 8px 16px;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            background: transparent;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+            .btn-outline:hover {
+                background-color: #e74c3c;
+                color: white;
+            }
+
+        /* Footer Styles */
+        .main-footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 15px;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+            .footer-logo span {
+                color: var(--secondary-color);
+            }
+
+        .footer-links h5 {
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+            .footer-links a:hover {
+                color: white;
+            }
+
+        .social-icons a {
+            color: white;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            margin-top: 25px;
+            color: #bdc3c7;
+            font-size: 12px;
+        }
+
+        .auth-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .log-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .auth-button i {
+            margin-right: 5px;
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+        .categories-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+            .categories-title h2 {
+                font-size: 40px;
+                color: #2c3e50;
+                margin-bottom: 15px;
+                font-weight: 700;
+                position: relative;
+                display: inline-block;
+            }
+
+                .categories-title h2:after {
+                    content: '';
+                    position: absolute;
+                    width: 60px;
+                    height: 3px;
+                    background: #e74c3c;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+            .categories-title p {
+                color: #7f8c8d;
+                font-size: 18px;
+                max-width: 700px;
+                margin: 0 auto;
+                line-height: 1.6;
+            }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            border: none;
+        }
+
+            .category-card:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(231, 76, 60, 0) 0%, rgba(0,0,0,0.1) 100%);
+                z-index: 1;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .category-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            }
+
+                .category-card:hover:before {
+                    opacity: 1;
+                }
+
+        .category-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+            .category-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transition: transform 0.5s ease;
+                padding: 20px;
+                background: #ffffff;
+            }
+
+        .category-card:hover .category-img img {
+            transform: scale(1.08);
+        }
+
+        .category-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            background: white;
+        }
+
+            .category-content h3 {
+                font-size: 22px;
+                margin-bottom: 12px;
+                color: #2c3e50;
+                font-weight: 600;
+                position: relative;
+                padding-bottom: 10px;
+            }
+
+                .category-content h3:after {
+                    content: '';
+                    position: absolute;
+                    width: 40px;
+                    height: 2px;
+                    background: #e74c3c;
+                    bottom: 0;
+                    left: 0;
+                }
+
+            .category-content p {
+                color: #7f8c8d;
+                margin-bottom: 20px;
+                line-height: 1.6;
+                flex-grow: 1;
+                font-size: 15px;
+            }
+
+        .btn-outline {
+            margin-top: auto;
+            align-self: flex-start;
+            padding: 10px 20px;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            background: transparent;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .btn-outline i {
+                margin-right: 8px;
+                transition: transform 0.3s;
+            }
+
+            .btn-outline:hover {
+                background-color: #e74c3c;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            }
+
+                .btn-outline:hover i {
+                    transform: translateX(3px);
+                }
+
+        /* Category Count Badge */
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 3;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+        }
+    </style>
+</head>
+<body ng-controller="HomeController">
+    <!-- Header -->
+    <!-- Hero Section -->
+    <section class="hero" style="position:relative;top:-31px">
+        <div class="hero-content">
+            <h1>Premium Car Parts for Every Vehicle</h1>
+            <p>Discover our extensive collection of high-quality automotive parts and accessories at competitive prices.</p>
+            <a href="@Url.Action("ShopPage", "CarShop")" class="btn">Shop Now</a>
+
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container body-content">
+        <section class="categories-title">
+            <h2>Our Product Categories</h2>
+            <p>Browse through our wide range of automotive parts and accessories</p>
+        </section>
+
+        <section class="categories-grid">
+            <div class="category-card" ng-repeat="category in categories">
+                <div class="category-badge" ng-if="category.ProductCount > 0">{{category.ProductCount}} items</div>
+                <div class="category-img">
+                    <img ng-src="{{category.FilePath}}" alt="{{category.Name}}">
+                </div>
+                <div class="category-content">
+                    <h3>{{category.Name}}</h3>
+                    <p>{{category.Description || 'Explore our premium selection of ' + category.Name + ' designed for performance and durability.'}}</p>
+                    <button class="btn btn-outline" ng-click="discoverProducts(category.Id)">
+                        <i class="fas fa-chevron-circle-right"></i> View Products
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+  
+   
+</body>
+</html>

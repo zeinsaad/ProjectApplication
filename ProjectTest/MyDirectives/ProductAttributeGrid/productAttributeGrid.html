@@ -1,0 +1,111 @@
+﻿<!-- Section 4: Attributes -->
+<fieldset class="form-section">
+    <legend><i class="fas fa-sliders-h"></i> Product Attributes</legend>
+
+    <div class="form-row attribute-row" ng-repeat="attr in Attributes track by attr.Id" style="display: flex; align-items: flex-end; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+        <div class="form-group" style="flex: 1; margin-right: 15px;">
+            <label>Attribute</label>
+            <attribute-selector on-ready="attr.onAttributeSelectorDirectiveReady" on-selection-changed="attr.onAttributeSelectionChanged"></attribute-selector>
+        </div>
+
+        <div class="form-group" style="flex: 1; margin-right: 15px;">
+            <label>Value</label>
+            <div ng-switch="attr.CategoryAttributeData.DataType">
+                <!-- String: Input text -->
+                <input ng-switch-when="1" type="text" required class="form-control" ng-model="attr.Value" placeholder="Enter value">
+
+                <!-- Number: Input number -->
+                <input ng-switch-when="2" type="number" required class="form-control" ng-model="attr.Value" placeholder="Enter value" step="any">
+
+                <!-- Boolean: Toggle switch -->
+
+                <div ng-switch-when="3" class="toggle-wrapper">
+                    <input type="checkbox" ng-model="attr.Value" class="toggle-input" id="toggle-1">
+                    <label for="toggle-1" class="toggle-slider">
+                        <span class="toggle-knob"></span>
+                    </label>
+                </div>
+
+                <!-- Date: Input date -->
+                <input ng-switch-when="4" type="date" required class="form-control" ng-model="attr.Value" placeholder="Enter value">
+
+                <input ng-switch-default type="text" required class="form-control" ng-model="attr.Value" placeholder="Enter value">
+            </div>
+        
+        </div>
+
+        <div class="form-group" style="flex: 1; margin-right: 15px;">
+            <label>Unit</label>
+            <span class="form-control" style="background-color:#f5f5f5;">{{attr.CategoryAttributeData.Unit || '—'}}</span>
+        </div>
+
+        <!-- Rounded red x button aligned with inputs -->
+        <div class="form-group" style="margin-bottom: 0;">
+            <button type="button" class="btn btn-danger rounded-circle" ng-click="removeAttribute(attr.Id)"
+                    style="width: 30px; height: 30px; padding: 0; margin-left: 10px;">
+                <span class="glyphicon glyphicon-remove" style="font-size: 12px;"></span>
+            </button>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-outline" ng-disabled="isAddButtonDisabled" ng-click="addAttribute()">
+        <i class="fas fa-plus"></i> Add Attribute
+    </button>
+</fieldset>
+
+
+<style>
+    .toggle-wrapper {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    .toggle-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 10px;
+        bottom:-5px;
+    }
+
+    .toggle-slider {
+        display: inline-block;
+        width: 44px;
+        height: 22px;
+        background: #e0e0e0;
+        border-radius: 11px;
+        transition: .3s;
+        cursor: pointer;
+        position: relative
+    }
+
+    .toggle-knob {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        background: #fff;
+        border-radius: 50%;
+        top: 2px;
+        left: 2px;
+        transition: .3s;
+        box-shadow: 0 1px 3px rgba(0,0,0,.2)
+    }
+
+    .toggle-input:checked + .toggle-slider {
+        background: #4CAF50
+    }
+
+        .toggle-input:checked + .toggle-slider .toggle-knob {
+            transform: translateX(22px)
+        }
+
+    .toggle-input:focus + .toggle-slider {
+        outline: 2px solid rgba(76,175,80,.5)
+    }
+
+    .toggle-input:disabled + .toggle-slider {
+        opacity: .6;
+        cursor: not-allowed
+    }
+</style>

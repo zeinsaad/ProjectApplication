@@ -1,0 +1,484 @@
+﻿<div class="modal-header" style="border-bottom: 2px solid var(--secondary-color);">
+    <h3 class="modal-title" style="color: var(--primary-color);">
+        <i class="fas fa-file-invoice"></i> Create New Order
+    </h3>
+</div>
+
+<div class="modal-body admin-order-modal">
+    <!-- Customer Information Section -->
+    <div class="customer-section">
+        <h4 class="section-title">
+            <i class="fas fa-user" style="color: var(--primary-color);"></i> Customer Information
+        </h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" class="form-control" ng-model="order.customerName" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" class="form-control" ng-model="order.phoneNumber" required>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+
+    <!-- Product Selection Section -->
+    <div class="products-section">
+        <h4 class="section-title">
+            <i class="fas fa-box-open" style="color: var(--primary-color);"></i> Product Selection
+        </h4>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="product-search">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control" ng-model="productNameSearch" placeholder="Search products...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="category-filter">
+                    <category-selector on-ready="onCategorySelectorDirectiveReady" 
+                                       on-selection-changed="onCategorySelectorChange">
+
+                    </category-selector>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-search" ng-click="search()">Search</button>
+            </div>
+           
+        </div>
+        <br />
+        <div class="product-list">
+            <div class="product-item" ng-repeat="product in products " ng-class="{'has-warning': product.selectedQuantity > product.Quantity}">
+                <img ng-src="{{product.ProductImages[0].ImagePath}}" class="product-image" alt="{{product.Name}}">
+                <div class="product-info">
+                    <div class="product-name">{{product.Name}}</div>
+                    <div class="product-meta">{{product.CategoryName}}</div>
+                    <div class="product-pricee">{{product.Price | currency}}</div>
+                    <div class="product-stock">In Stock: {{product.Quantity}}</div>
+                    <div class="stock-warning" ng-show="product.selectedQuantity > product.Quantity">
+                        <i class="fas fa-exclamation-circle"></i> Quantity exceeds available stock
+                    </div>
+                </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" ng-click="decreaseQuantity(product)" ng-disabled="product.selectedQuantity <= 0">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" ng-model="product.selectedQuantity" min="0" max="{{product.Quantity}}" ng-change="validateQuantity(product)">
+                    <button class="quantity-btn" ng-click="increaseQuantity(product)" ng-disabled="product.selectedQuantity >= product.Quantity">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <button class="add-item-btn" ng-click="addToOrder(product)" ng-disabled="product.selectedQuantity <= 0 || product.selectedQuantity > product.Quantity">
+                    <i class="fas fa-cart-plus"></i> Add
+                </button>
+            </div>
+            <div ng-if="products.length === 0" class="empty-cart">
+                <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px;"></i>
+                <p>No products found matching your criteria</p>
+            </div>
+        </div>
+
+        <div class="selected-products">
+            <h5 class="section-title">
+                <i class="fas fa-shopping-cart" style="color: var(--primary-color);"></i> Order Items
+            </h5>
+            <div class="empty-cart" ng-if="order.items.length === 0">
+                <i class="fas fa-cart-arrow-down" style="font-size: 24px; margin-bottom: 10px;"></i>
+                <p>No items added to order yet</p>
+            </div>
+            <div class="selected-item" ng-repeat="item in order.items">
+                <div class="selected-item-info">
+                    <div class="selected-item-name">{{item.Name}}</div>
+                    <div class="selected-item-quantity">Quantity: {{item.selectedQuantity}}</div>
+                </div>
+                <div class="selected-item-price">{{item.Price * item.selectedQuantity | currency}}</div>
+                <div class="remove-item" ng-click="removeItem(item)">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span>{{calculateSubtotal() | currency}}</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping:</span>
+                <span>{{order.shipping || 0 | currency}}</span>
+            </div>
+            <div class="summary-row total-amount">
+                <span>Total:</span>
+                <span>{{calculateTotal() | currency}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-cancel" ng-click="cancel()">
+        <i class="fas fa-times"></i> Cancel
+    </button>
+    <button class="btn btn-submit" ng-click="saveOrder()" ng-disabled="!order.customerName || !order.phoneNumber ||  order.items.length === 0">
+        <i class="fas fa-check"></i> Place Order
+    </button>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #e74c3c;
+        --accent-color: #3498db;
+        --light-color: #ecf0f1;
+        --dark-color: #2c3e50;
+        --background-color: #f8f9fa; /* Changed from pure white */
+        --card-color: #f1f3f5; /* Changed from pure white */
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+        background-color: var(--background-color);
+    }
+
+    .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: var(--card-color);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .page-header {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--secondary-color);
+        padding-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .btn-new-order {
+        background-color: var(--secondary-color);
+        color: white;
+        margin-bottom: 20px;
+        border: none;
+        transition: all 0.3s;
+    }
+
+        .btn-new-order:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+    .admin-order-modal {
+        padding: 20px;
+        background-color: var(--background-color);
+    }
+    
+   
+
+    .customer-section, .products-section {
+        margin-bottom: 25px;
+        padding: 15px;
+        background: var(--card-color);
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        border: 1px solid rgba(44, 62, 80, 0.1);
+    }
+
+    .form-control {
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        background-color: white;
+    }
+
+    /* Changed product list background */
+    .product-list {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        border: 1px solid rgba(44, 62, 80, 0.1);
+        border-radius: 5px;
+        background-color: white;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+        }
+
+    .product-search .input-group-addon {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+    }
+
+    .category-filter .form-control {
+        border-color: var(--primary-color);
+    }
+
+    
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        transition: all 0.2s;
+    }
+
+        .product-item:hover {
+            background-color: rgba(44, 62, 80, 0.02);
+        }
+
+    .product-image {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        margin-right: 20px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    .product-info {
+        flex: 1;
+    }
+
+    .product-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+    }
+
+
+    .product-pricee {
+        color: var(--secondary-color);
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .product-stock {
+        color: #666;
+        font-size: 13px;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+        .quantity-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+   
+    .add-item-btn {
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 500;
+    }
+
+        .add-item-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .add-item-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .selected-products {
+        margin-top: 25px;
+        border: 1px solid rgba(44, 62, 80, 0.1);
+        border-radius: 5px;
+        padding: 15px;
+        background: var(--card-color);
+    }
+
+    .selected-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+    }
+
+    .selected-item-info {
+        flex: 1;
+    }
+
+    .selected-item-name {
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .selected-item-quantity {
+        color: #666;
+        font-size: 13px;
+    }
+
+    .selected-item-price {
+        font-weight: 600;
+        color: var(--secondary-color);
+        min-width: 80px;
+        text-align: right;
+        margin-right: 15px;
+    }
+
+    .remove-item {
+        color: var(--secondary-color);
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s;
+    }
+
+        .remove-item:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+    
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .total-amount {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--secondary-color);
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 30px;
+        color: var(--primary-color);
+    }
+
+    .modal-footer {
+        border-top: 2px solid var(--secondary-color);
+        padding-top: 15px;
+        background-color: var(--card-color);
+    }
+
+    .btn-cancel {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+
+    .btn-submit {
+        background-color: var(--secondary-color);
+        color: white;
+    }
+
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    .stock-warning {
+        color: var(--secondary-color);
+        font-size: 12px;
+        margin-top: 3px;
+        display: none;
+    }
+
+    .has-warning .stock-warning {
+        display: block;
+    }
+
+    .has-warning .quantity-input {
+        border-color: var(--secondary-color);
+    }
+    .section-title {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--secondary-color);
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    .product-meta {
+        font-size: 13px;
+        color: var(--secondary-color);
+    }
+
+    /* Changed quantity input border */
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        margin: 0 5px;
+        border: 1px solid var(--primary-color);
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+    /* Changed order summary background */
+    .order-summary {
+        background-color: rgba(44, 62, 80, 0.1);
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        border: 1px solid rgba(44, 62, 80, 0.1);
+    }
+    .btn.btn-search {
+        background-color: #2c3e50; /* Dark blue-gray background */
+        color: white; /* White text for contrast */
+        border: none; /* Remove default border */
+        border-radius: 4px; /* Slightly rounded corners */
+        font-size: 16px; /* Readable text size */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+
+        /* Hover effect */
+        .btn.btn-search:hover {
+            background-color: #1a252f; /* Darker shade on hover */
+            color:white;
+        }
+
+        .btn.btn-search:focus {
+            color:white;
+        }
+
+</style>

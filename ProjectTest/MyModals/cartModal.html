@@ -1,0 +1,413 @@
+﻿<!-- Modal Cart -->
+<div class="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div>
+        <!-- Header -->
+        <div class="cart-header">
+            <h2 class="cart-title" id="cartTitle">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                Your Shopping Cart ({{cart.length}})
+            </h2>
+            <button type="button" class="close-btn" ng-click="closeCart()" aria-label="Close cart">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="cart-body" ng-if="cart.length > 0">
+            <div class="cart-items">
+                <div class="cart-item" ng-repeat="item in cart track by item.ProductId">
+                    <div class="item-image">
+                        <img ng-src="{{item.Image || 'https://via.placeholder.com/150'}}" alt="{{item.Name}}" aria-hidden="true">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">{{item.Name}}</div>
+                        <div class="item-price">{{item.Price * item.Quantity | currency}}</div>
+                        <div class="item-quantity-controls">
+                            <button class="quantity-btn"
+                                    ng-click="decrementQuantity(item)"
+                                    ng-disabled="item.Quantity <= 1"
+                                    aria-label="Decrease quantity">
+                                −
+                            </button>
+                            <span class="quantity" aria-live="polite">{{item.Quantity}}</span>
+                            <button class="quantity-btn"
+                                    ng-disabled="item.Quantity >= item.AvailableQuantity"
+                                    ng-click="incrementQuantity(item)"
+                                    aria-label="Increase quantity">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" ng-click="remove(item.ProductId)" aria-label="Remove {{item.Name}} from cart">
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i> Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty Cart -->
+        <div class="empty-cart" ng-if="cart.length === 0" aria-live="polite">
+            <div class="empty-cart-content">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <h3>Your cart is empty</h3>
+                <p>Start shopping to add items to your cart</p>
+                <button class="continue-shopping-btn" ng-click="closeCart()">Continue Shopping</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="cart-footer" ng-if="cart.length > 0">
+            <div class="order-summary">
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span aria-live="polite">{{total | currency}}</span>
+                </div>
+            </div>
+            <div ng-if="isSaveDisabled" class="alert alert-warning" role="alert">
+                {{ saveMessage }}
+            </div>
+            <button class="checkout-btn"
+                    ng-disabled="isSaveDisabled"
+                    ng-click="checkout()"
+                    aria-disabled="{{isSaveDisabled ? 'true' : 'false'}}">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Color Variables */
+    :root {
+        --primary-dark: #2c3e50;
+        --primary-accent: #e74c3c;
+        --light-text: #ffffff;
+        --dark-text: #333333;
+        --border-color: #e0e0e0;
+        --disabled-color: #bdc3c7;
+        --focus-outline: 2px solid #3498db;
+    }
+
+    /* Modal Cart */
+    .cart-modal {
+        position: fixed;
+        width: 90%;
+        max-width: 800px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        border: 1px solid var(--primary-dark);
+    }
+
+    /* Focus styles for accessibility */
+    button:focus,
+    input:focus,
+    [tabindex="0"]:focus {
+        outline: var(--focus-outline);
+        outline-offset: 2px;
+    }
+
+    /* Header */
+    .cart-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary-dark);
+        color: var(--light-text);
+    }
+
+    .cart-title {
+        font-size: 18px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--light-text);
+        font-weight: 600;
+    }
+
+        .cart-title i {
+            color: var(--light-text);
+            font-size: 16px;
+        }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: var(--light-text);
+        transition: color 0.2s;
+        padding: 5px;
+        line-height: 1;
+    }
+
+        .close-btn:hover {
+            color: var(--primary-accent);
+        }
+
+    /* Body */
+    .cart-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+    }
+
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+    }
+
+    .item-image {
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+        background: #f8f9fa;
+        border-radius: 4px;
+        object-fit: contain;
+    }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+    .item-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .item-name {
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 6px;
+        color: var(--dark-text);
+    }
+
+    .item-price {
+        color: var(--primary-accent);
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .item-quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .quantity-btn {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--border-color);
+        background: #f8f9fa;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+
+        .quantity-btn:hover {
+            background: #e9ecef;
+            border-color: var(--primary-dark);
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f8f9fa;
+        }
+
+    .quantity {
+        min-width: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .remove-btn {
+        position: absolute;
+        bottom: 12px;
+        right: 0;
+        background: none;
+        border: none;
+        color: var(--primary-accent);
+        cursor: pointer;
+        font-size: 14px;
+        transition: color 0.2s;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+        .remove-btn:hover {
+            color: #c0392b;
+        }
+
+        .remove-btn i {
+            font-size: 12px;
+        }
+
+    /* Empty Cart */
+    .empty-cart {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .empty-cart-content i {
+        font-size: 40px;
+        color: #ecf0f1;
+        margin-bottom: 12px;
+    }
+
+    .empty-cart-content h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: var(--dark-text);
+    }
+
+    .empty-cart-content p {
+        color: #7f8c8d;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .continue-shopping-btn {
+        background: var(--primary-dark);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+        .continue-shopping-btn:hover {
+            background: #34495e;
+        }
+
+    /* Footer */
+    .cart-footer {
+        padding: 15px;
+        border-top: 1px solid var(--border-color);
+        background: #f8f9fa;
+    }
+
+    .summary-row.total {
+        font-weight: 600;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        color: var(--primary-dark);
+    }
+
+    .checkout-btn {
+        width: 100%;
+        background: var(--primary-accent);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: block;
+        text-align: center;
+        -webkit-appearance: none;
+        appearance: none;
+        font-weight: 600;
+    }
+
+        .checkout-btn:hover:not(:disabled) {
+            background: #c0392b;
+        }
+
+        .checkout-btn:disabled {
+            background-color: var(--disabled-color);
+            cursor: not-allowed;
+        }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .cart-modal {
+            width: 95%;
+        }
+
+        .cart-header {
+            padding: 12px 15px;
+        }
+
+        .cart-body {
+            padding: 12px;
+        }
+
+        .item-image {
+            width: 70px;
+            height: 70px;
+        }
+
+        .item-name {
+            font-size: 15px;
+        }
+
+        .item-price {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cart-item {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 120px;
+        }
+
+        .remove-btn {
+            position: static;
+            margin-top: 8px;
+            justify-content: flex-end;
+        }
+
+        .empty-cart-content i {
+            font-size: 36px;
+        }
+
+        .empty-cart-content h3 {
+            font-size: 16px;
+        }
+    }
+</style>
