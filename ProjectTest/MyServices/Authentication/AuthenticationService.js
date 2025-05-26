@@ -26,51 +26,46 @@
         this.login = function (parameters, callback) {
             console.log(parameters);
             var url = baseUrl + 'Login';
-            var self = this; // preserve reference to 'this'
+            var self = this;
 
-            // Make the initial API call to check user credentials
             return WebApiService.post(url, parameters.user)
                 .then(function (response) {
                     console.log(response);
 
-                    // If the response is null or doesn't contain valid user data, return false
                     if (!response || !response.data) {
                         console.log("Invalid credentials or user not found.");
-                        if (callback) {
-                            callback(false);  // Credentials are invalid, callback with false
-                        }
-                        return;  // Exit early as the user is invalid
-                    }
-
-                    // If user is valid, call the callback with true
-                    if (callback) {
-                        callback(true);
+                        if (callback) callback(false);
+                        return;
                     }
 
                     // Proceed with checking the current user after a successful login
                     self.current().then(function (user) {
                         console.log(user);
+
+                        if (user && user.isDeactivated) {
+                            console.log("User is deactivated.");
+                            if (callback) callback("Deactivated");
+                            return;
+                        }
+
+                        if (callback) callback(true);
+
                         if (user && user.Role === 1) {
-                            // Admin role, handle accordingly (e.g., redirect)
-                             window.location.href = '/AdminDashboard/Category'; // Uncomment if redirection needed
-                        } else {
-                            if (user && user.Role === 0) {
-                                location.reload(); // Reload for non-admin users
-                            }
+                            window.location.href = '/AdminDashboard/Category';
+                        } else if (user && user.Role === 0) {
+                            location.reload();
                         }
                     }).catch(function (error) {
                         console.error('Error fetching current user:', error);
-                        // Handle error if fetching the current user fails
+                        if (callback) callback(false);
                     });
-
                 })
                 .catch(function (error) {
                     console.error('Error login:', error);
-                    if (callback) {
-                        callback(false);  // Call callback with false if there is an error with the request
-                    }
+                    if (callback) callback(false);
                 });
         };
+
 
 
 

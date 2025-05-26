@@ -68,7 +68,8 @@ namespace ProjectTest.DatabaseManager.Data
 						Id = reader.GetInt32(0),
 						PhoneNumber = reader.GetString(1),
 						FullName = reader.GetString(2),
-						Role = reader.GetInt32(3)
+						Role = reader.GetInt32(3),
+						isDeactivated = reader.GetBoolean(4)  // <-- add this line
 					};
 				}
 				return null;
@@ -81,6 +82,13 @@ namespace ProjectTest.DatabaseManager.Data
 			if (authenticatedUser == null)
 			{
 				return null; // Invalid login
+			}
+
+			if (authenticatedUser.isDeactivated)
+			{
+				// Option 1: Reject login if user is deactivated
+				return null;
+				// Option 2: throw new UnauthorizedAccessException("User is deactivated.");
 			}
 
 			var userData = $"{authenticatedUser.Role}|{authenticatedUser.FullName}";
@@ -105,8 +113,8 @@ namespace ProjectTest.DatabaseManager.Data
 			HttpContext.Current.Response.Cookies.Add(authCookie);
 
 			return authenticatedUser;
-
 		}
+
 
 
 
@@ -160,7 +168,8 @@ namespace ProjectTest.DatabaseManager.Data
 						Id = reader.GetInt32(0),
 						PhoneNumber = reader.GetString(1),
 						FullName = reader.GetString(2),
-						Role = reader.GetInt32(3)
+						Role = reader.GetInt32(3),
+						isDeactivated = reader.GetBoolean(4)
 					};
 				}
 				return null; // If no user found

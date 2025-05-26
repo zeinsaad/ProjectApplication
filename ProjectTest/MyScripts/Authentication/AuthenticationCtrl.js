@@ -281,18 +281,26 @@ function AuthenticationController($scope, $q, ModalService, AuthenticationServic
         console.log($scope.parameters);
 
         // Attempt login
-        AuthenticationService.login($scope.parameters, function (success) {
-            console.log("Login Success:", success);
+        AuthenticationService.login($scope.parameters, function (result) {
+            console.log("Login result:", result);
 
-            if (success) {
-                $uibModalInstance.close(); // Close modal only if login is successful
+            if (result === true) {
+                console.log("Login Sucessfully");
+                // Login successful
+                $uibModalInstance.close(); // Close modal
+            } else if (result === "Deactivated") {
+                // User is deactivated
+                $scope.loginMessage = "Your account has been deactivated. Please contact support.";
+                $scope.loginMessageClass = "error";
+                // Optionally, keep the modal open for user to see the message
             } else {
-                // Display error message without closing modal
+                // Login failed
                 $scope.loginMessage = "Invalid phone number or password. Please try again.";
                 $scope.loginMessageClass = "error";
             }
         });
     };
+
 
 
     $scope.closeModal = function () {
