@@ -1,11 +1,13 @@
-﻿@{
-    ViewBag.Title = "MyOrders";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿
 
 <!DOCTYPE html>
-<html ng-app="Ecommerce">
+<html ng-app="Ecommerce" ng-show="!isLoading">
 <head>
+    @{
+        ViewBag.Title = "MyOrders";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <meta charset="UTF-8">
     <title>Order Management</title>
     <script src="~/libs/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="~/libs/bootstrap.min.css">
@@ -777,7 +779,18 @@
     </style>
 </head>
 <body ng-controller="MyOrdersManagementController">
-    <div ng-if="!userId" class="login-prompt-container">
+    <div ng-show="isLoading" class="loader-container">
+        <div class="loader-content">
+            <div class="loader-spinner">
+                <div class="loader-spinner-inner"></div>
+                <div class="loader-spinner-inner"></div>
+                <div class="loader-spinner-inner"></div>
+            </div>
+            <div class="loader-text">Loading Your Orders</div>
+            <div class="loader-subtext">Please wait while we prepare your content</div>
+        </div>
+    </div>
+    <div ng-if="!userId" ng-show="!isLoading" class="login-prompt-container">
         <div class="login-prompt-card">
             <div class="login-prompt-icon">
                 <i class="fas fa-shopping-bag"></i>
@@ -787,22 +800,12 @@
             <button class="login-prompt-button" ng-click="login()">
                 <i class="fas fa-sign-in-alt"></i> Login
             </button>
-            
+
         </div>
         <br />
     </div>
     <div ng-show="userId" class="container">
-        <div ng-show="isLoading" class="loader-container">
-            <div class="loader-content">
-                <div class="loader-spinner">
-                    <div class="loader-spinner-inner"></div>
-                    <div class="loader-spinner-inner"></div>
-                    <div class="loader-spinner-inner"></div>
-                </div>
-                <div class="loader-text">Loading Your Orders</div>
-                <div class="loader-subtext">Please wait while we prepare your content</div>
-            </div>
-        </div>
+
         <div class="filter-header">
             <h2 class="page-header" style="color: #2c3e50; border-bottom: 2px solid #e74c3c; margin-top: 0;">
                 <i class="fas fa-clipboard-list"></i> My Orders

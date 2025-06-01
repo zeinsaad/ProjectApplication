@@ -342,6 +342,192 @@
              background-color: #c0392b;
              color: white;
          }
+         .categories-title {
+             text-align: center;
+             margin-bottom: 50px;
+         }
+
+             .categories-title h2 {
+                 font-size: 40px;
+                 color: #2c3e50;
+                 margin-bottom: 15px;
+                 font-weight: 700;
+                 position: relative;
+                 display: inline-block;
+             }
+
+                 .categories-title h2:after {
+                     content: '';
+                     position: absolute;
+                     width: 60px;
+                     height: 3px;
+                     background: #e74c3c;
+                     bottom: -10px;
+                     left: 50%;
+                     transform: translateX(-50%);
+                 }
+
+             .categories-title p {
+                 color: #7f8c8d;
+                 font-size: 18px;
+                 max-width: 700px;
+                 margin: 0 auto;
+                 line-height: 1.6;
+             }
+
+         .categories-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+             gap: 30px;
+             margin-bottom: 60px;
+         }
+
+         .category-card {
+             background-color: white;
+             border-radius: 10px;
+             overflow: hidden;
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+             display: flex;
+             flex-direction: column;
+             height: 100%;
+             position: relative;
+             border: none;
+         }
+
+             .category-card:before {
+                 content: '';
+                 position: absolute;
+                 top: 0;
+                 left: 0;
+                 width: 100%;
+                 height: 100%;
+                 background: linear-gradient(to bottom, rgba(231, 76, 60, 0) 0%, rgba(0,0,0,0.1) 100%);
+                 z-index: 1;
+                 opacity: 0;
+                 transition: opacity 0.3s;
+             }
+
+             .category-card:hover {
+                 transform: translateY(-10px);
+                 box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+             }
+
+                 .category-card:hover:before {
+                     opacity: 1;
+                 }
+
+         .category-img {
+             height: 220px;
+             overflow: hidden;
+             position: relative;
+         }
+
+             .category-img img {
+                 width: 100%;
+                 height: 100%;
+                 object-fit: contain;
+                 transition: transform 0.5s ease;
+                 padding: 20px;
+                 background: #ffffff;
+             }
+
+         .category-card:hover .category-img img {
+             transform: scale(1.08);
+         }
+
+         .category-content {
+             padding: 25px;
+             flex: 1;
+             display: flex;
+             flex-direction: column;
+             position: relative;
+             z-index: 2;
+             background: white;
+         }
+
+             .category-content h3 {
+                 font-size: 22px;
+                 margin-bottom: 12px;
+                 color: #2c3e50;
+                 font-weight: 600;
+                 position: relative;
+                 padding-bottom: 10px;
+             }
+
+                 .category-content h3:after {
+                     content: '';
+                     position: absolute;
+                     width: 40px;
+                     height: 2px;
+                     background: #e74c3c;
+                     bottom: 0;
+                     left: 0;
+                 }
+
+             .category-content p {
+                 color: #7f8c8d;
+                 margin-bottom: 20px;
+                 line-height: 1.6;
+                 flex-grow: 1;
+                 font-size: 15px;
+             }
+
+         .btn-outline {
+             margin-top: auto;
+             align-self: flex-start;
+             padding: 10px 20px;
+             border: 2px solid #e74c3c;
+             color: #e74c3c;
+             background: transparent;
+             border-radius: 30px;
+             transition: all 0.3s;
+             font-weight: 500;
+             font-size: 14px;
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+         }
+
+             .btn-outline i {
+                 margin-right: 8px;
+                 transition: transform 0.3s;
+             }
+
+             .btn-outline:hover {
+                 background-color: #e74c3c;
+                 color: white;
+                 transform: translateY(-2px);
+                 box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+             }
+
+                 .btn-outline:hover i {
+                     transform: translateX(3px);
+                 }
+
+         /* Category Count Badge */
+         .category-badge {
+             position: absolute;
+             top: 15px;
+             right: 15px;
+             background: #e74c3c;
+             color: white;
+             padding: 5px 10px;
+             border-radius: 20px;
+             font-size: 13px;
+             font-weight: 600;
+             z-index: 3;
+             box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+         }
+         .category-description {
+             margin-bottom: 12px;
+         }
+
+         .card-actions {
+             border-top: 3px solid #eee;
+             padding-top: 15px;
+         }
+
      </style>
     </head>
 
@@ -380,13 +566,44 @@
 
         <div ng-if="categories.length > 0">
             <div class="row">
-                <div class="col-lg-4 col-md-6" ng-repeat="category in currentCategories">
-                    <div class="category-card card">
-                        <img class="card-img-top" ng-src="{{category.FilePath || 'https://via.placeholder.com/300x200?text=No+Image'}}" alt="{{category.Name}}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{category.Name}}</h5>
-                            <p class="card-text" ng-if="category.Description">{{category.Description}}</p>
-                            <p class="card-text text-muted" ng-if="!category.Description">No description available</p>
+                <!--<div class="col-lg-4 col-md-6" ng-repeat="category in currentCategories"> -->
+                <!--<div class="category-card card">
+        <img class="card-img-top" ng-src="{{category.FilePath || 'https://via.placeholder.com/300x200?text=No+Image'}}" alt="{{category.Name}}">
+        <div class="card-body">
+            <h5 class="card-title">{{category.Name}}</h5>
+            <p class="card-text" ng-if="category.Description">{{category.Description}}</p>
+            <p class="card-text text-muted" ng-if="!category.Description">No description available</p>
+            <div class="card-actions text-right">
+                <button class="btn btn-secondary" ng-click="editCategory(category.Id)">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-danger" ng-click="confirmDelete(category.Id)" style="margin-left: 8px;">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+
+    </div> -->
+                <section class="categories-grid">
+                    <div class="category-card" ng-repeat="category in categories">
+                        <div class="category-badge" ng-if="category.ProductCount > 0">
+                            {{category.ProductCount}} items
+                        </div>
+
+                        <div class="category-img">
+                            <img ng-src="{{category.FilePath}}" alt="{{category.Name}}">
+                        </div>
+
+                        <div class="category-content">
+                            <!-- Description section -->
+                            <div class="category-description">
+                                <h3>{{category.Name}}</h3>
+                                <p>
+                                    {{category.Description || 'Explore our premium selection of ' + category.Name + ' designed for performance and durability.'}}
+                                </p>
+                            </div>
+
+                            <!-- Actions section -->
                             <div class="card-actions text-right">
                                 <button class="btn btn-secondary" ng-click="editCategory(category.Id)">
                                     <i class="fas fa-edit"></i> Edit
@@ -396,26 +613,30 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <!-- Delete confirmation - add inside each product card -->
-                    <div class="delete-confirmation" ng-if="showDeleteConfirmation === category.Id">
-                        <div class="confirmation-box">
-                            <p>
-                                Are you sure you want to delete this category? <br />
-                                <strong>Note:</strong> All products under this category will also be deleted!
-                            </p>
-                            <div class="confirmation-actions">
-                                <button class="btn btn-sm btn-cancel" ng-click="cancelDelete()">
-                                    Cancel
-                                </button>
-                                <button class="btn btn-sm btn-confirm-delete" ng-click="deleteCategory(category.Id)">
-                                    Delete
-                                </button>
+
+                        <!-- Delete confirmation -->
+                        <div class="delete-confirmation" ng-if="showDeleteConfirmation === category.Id">
+                            <div class="confirmation-box">
+                                <p>
+                                    Are you sure you want to delete this category? <br />
+                                    <strong>Note:</strong> All products under this category will also be deleted!
+                                </p>
+                                <div class="confirmation-actions">
+                                    <button class="btn btn-sm btn-cancel" ng-click="cancelDelete()">
+                                        Cancel
+                                    </button>
+                                    <button class="btn btn-sm btn-confirm-delete" ng-click="deleteCategory(category.Id)">
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+
             </div>
+           
 
             <div class="pagination-container text-center">
                 <nav aria-label="Page navigation">

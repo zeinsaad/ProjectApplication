@@ -56,6 +56,8 @@ namespace ProjectTest.Controllers
 			string messageLower = userMessage.ToLower();
 
 			if (IsGreetingIntent(messageLower)) return HandleGreetingIntent();
+			if (IsThanksIntent(messageLower)) return HandleThanksIntent();
+
 			if (IsHelpIntent(messageLower)) return HandleHelpIntent();
 			if (IsEmailIntent(messageLower)) return HandleEmailIntent();
 			if (IsLocationIntent(messageLower)) return HandleLocationIntent();
@@ -155,6 +157,25 @@ namespace ProjectTest.Controllers
 		}
 
 		private string HandleGreetingIntent() => "Hello! How can I assist you today?";
+
+		private bool IsThanksIntent(string message)
+		{
+			var thanksKeywords = new[]
+			{
+		"thank you", "thanks", "thx", "many thanks", "thanks a lot",
+		"thank u", "much appreciated", "appreciate it", "ty", "thanks so much"
+	};
+
+			// Strict matching for thanks (starts with or exact)
+			return thanksKeywords.Any(keyword =>
+				message.StartsWith(keyword, StringComparison.OrdinalIgnoreCase) ||
+				message.Equals(keyword, StringComparison.OrdinalIgnoreCase)
+			);
+		}
+
+		private string HandleThanksIntent() =>
+	"You're welcome! Let me know if there's anything else I can help you with.";
+
 
 		// Help Intent
 		private bool IsHelpIntent(string message)

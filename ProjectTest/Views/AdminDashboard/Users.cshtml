@@ -323,6 +323,18 @@
         .loader-text {
             animation: pulse 2s infinite ease-in-out;
         }
+        .btn-custom {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 6px 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #c0392b;
+    color: #fff;
+}
     </style>
 </head>
 <body ng-controller="UserManagementController">
@@ -340,11 +352,66 @@
     <div class="container">
         <h1 style="border-bottom: 2px solid #e74c3c; margin-top: 0;">User Management</h1>
 
-        <div class="search-container">
-            <input type="number" class="search-input" ng-model="searchId" placeholder="Search by Id...">
-            <input type="text" class="search-input" ng-model="searchName" placeholder="Search by Name...">
-            <button class="search-btn" ng-click="searchUsers()">Search</button>
+       <div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+      <div class="panel panel-default" style="border-radius: 0; margin-top: 20px;">
+        <div class="panel-body" style="padding: 20px;">
+          <form class="form-inline">
+            <div class="form-group" style="margin-right: 15px; width: 25%; min-width: 150px;">
+              <input type="number"
+                     class="form-control"
+                     ng-model="searchId"
+                     placeholder="Search by ID..."
+                     style="width: 100%;">
+            </div>
+
+            <div class="form-group" style="margin-right: 15px; width: 35%; min-width: 200px;">
+              <input type="text"
+                     class="form-control"
+                     ng-model="searchName"
+                     placeholder="Search by Name..."
+                     style="width: 100%;">
+            </div>
+
+            <button class="btn btn-custom"
+                    ng-click="searchUsers()"
+                    style="min-width: 100px;">
+              <i class="glyphicon glyphicon-search"></i> Search
+            </button>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-custom {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+  
+  .btn-custom:hover, .btn-custom:focus {
+    background-color: #c0392b;
+    color: white;
+    outline: none;
+  }
+  
+  .form-control {
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    border-color: #e74c3c;
+    box-shadow: none;
+  }
+</style>
+
 
         <table class="user-table">
             <thead>

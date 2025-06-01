@@ -18,9 +18,13 @@ function MyOrdersManagementController($scope, ModalService, PaginationService, $
     function defineScope() {
         $scope.isLoading = true;
 
-        AuthenticationService.current().then(function (result) {
+        $scope.authPromise = AuthenticationService.current().then(function (result) {
+            console.log(result);
             if (result) {
                 $scope.userId = result.Id;
+            }
+            else {
+                $scope.isLoading = false;
             }
         });
 
@@ -64,6 +68,9 @@ function MyOrdersManagementController($scope, ModalService, PaginationService, $
 
     function loadData() {
         loadOrders();
+        $q.all([$scope.authPromise, $scope.ordersPromise]).then(function () {
+            $scope.isLoading = false;
+        });
     }
 
     function load() {
@@ -127,7 +134,7 @@ function MyOrdersManagementController($scope, ModalService, PaginationService, $
             params.OrderType = parseInt(orderType);
         }
         console.log(params);
-        ShopWebApiService.getMyOrders(params)
+        $scope.ordersPromise = ShopWebApiService.getMyOrders(params)
             .then(function (data) {
                 console.log(data);
                 $scope.orders = data;
