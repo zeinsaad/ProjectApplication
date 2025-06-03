@@ -257,7 +257,7 @@ function AuthenticationController($scope, $q, ModalService, AuthenticationServic
     };
 
     $scope.login = function () {
-        console.log($scope.loginPassword);
+   
 
         // Validate user input
         if (!$scope.loginPhoneNumber || !$scope.loginPassword) {

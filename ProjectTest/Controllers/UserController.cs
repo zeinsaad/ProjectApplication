@@ -73,8 +73,7 @@ namespace ProjectTest.Controllers
 		[Route("current")]
 		public User GetCurrentUser()
 		{
-			if (!User.Identity.IsAuthenticated)
-				return null;
+			
 
 			// Get the phone number from the identity
 			string phoneNumber = User.Identity.Name;

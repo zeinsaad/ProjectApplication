@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\myservices\\authentication\\authenticationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myservices\\authentication\\authenticationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\myscripts\\authentication\\authenticationctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\authentication\\authenticationctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\databasemanager\\business\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\databasemanager\\business\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\databasemanager\\data\\userdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\databasemanager\\data\\userdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\admindashboard\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -46,11 +62,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserManager.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
+              "RelativeDocumentMoniker": "ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
+              "RelativeToolTip": "ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T08:21:34.362Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ProjectTest\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ProjectTest\\Controllers\\UserController.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAAACYAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T08:19:56.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AuthenticationService.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
+              "RelativeToolTip": "ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAADcAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-03T08:16:12.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthenticationCtrl.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
+              "RelativeToolTip": "ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
+              "ViewState": "AQIAAA8BAAAAAAAAAAAAAAMBAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-03T08:16:07.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\Shared\\_Layout.cshtml",
@@ -58,25 +126,24 @@
               "RelativeToolTip": "ProjectTest\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AQIAAPgAAAAAAAAAAAAQwA8BAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-28T16:22:34.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-28T16:22:34.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "UserDataManager.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
               "RelativeDocumentMoniker": "ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
               "RelativeToolTip": "ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
-              "ViewState": "AQIAAMwAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAAAFYAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T11:10:35.052Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Users.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
@@ -88,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Category.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
@@ -100,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\Index.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\Index.cshtml",
@@ -112,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "ChatBotController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\ChatBotController.cs",
               "RelativeDocumentMoniker": "ProjectTest\\Controllers\\ChatBotController.cs",
@@ -124,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "ShopPage.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
@@ -136,7 +203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "MyOrders.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
@@ -148,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "MyOrdersManagementCtrl.js",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",
               "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",

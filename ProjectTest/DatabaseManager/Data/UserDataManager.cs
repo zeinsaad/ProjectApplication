@@ -84,12 +84,7 @@ namespace ProjectTest.DatabaseManager.Data
 				return null; // Invalid login
 			}
 
-			if (authenticatedUser.isDeactivated)
-			{
-				// Option 1: Reject login if user is deactivated
-				return null;
-				// Option 2: throw new UnauthorizedAccessException("User is deactivated.");
-			}
+		
 
 			var userData = $"{authenticatedUser.Role}|{authenticatedUser.FullName}";
 
