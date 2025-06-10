@@ -60,3 +60,7 @@
 5/4/2025 12:14:06 PM - File saved successfully: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\2139efac-02b3-4a23-8e63-a6a062b2a4f0.jpg
 5/9/2025 2:13:11 PM - Absolute Path: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\2271ab2f-cbf1-4a48-bd4f-a569207c4fa0.jpg
 5/9/2025 2:13:11 PM - File saved successfully: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\2271ab2f-cbf1-4a48-bd4f-a569207c4fa0.jpg
+6/10/2025 6:19:08 PM - Absolute Path: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\d4646a92-9717-4301-902e-edd2f34fd13b.jpg
+6/10/2025 6:19:08 PM - File saved successfully: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\d4646a92-9717-4301-902e-edd2f34fd13b.jpg
+6/10/2025 6:27:41 PM - Absolute Path: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\a78e43f4-f268-4f92-a0f1-80f297f807f1.jpg
+6/10/2025 6:27:41 PM - File saved successfully: C:\Users\Admin\Desktop\VisualStudio\ProjectTest\ProjectTest\Uploads\a78e43f4-f268-4f92-a0f1-80f297f807f1.jpg

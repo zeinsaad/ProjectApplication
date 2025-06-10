@@ -7,6 +7,7 @@
         // Function to get the pages
         service.getPages = function (currentPage, totalItems, customPageSize) {
             var pageSize = customPageSize || defaultPageSize; // Use customPageSize if provided, otherwise use defaultPageSize
+            console.log(pageSize);
             var pages = [];
 
             var totalPages = Math.ceil(totalItems / pageSize);

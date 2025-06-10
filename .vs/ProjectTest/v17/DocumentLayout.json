@@ -3,56 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\myservices\\authentication\\authenticationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myservices\\authentication\\authenticationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\mymodals\\authmodal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\mymodals\\authmodal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\myscripts\\authentication\\authenticationctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\authentication\\authenticationctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myscripts\\shoppage\\checkoutcontroller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\shoppage\\checkoutcontroller.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\databasemanager\\business\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\databasemanager\\business\\usermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\mymodals\\checkoutmodal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\mymodals\\checkoutmodal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\databasemanager\\data\\userdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\databasemanager\\data\\userdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myscripts\\products\\productmanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\products\\productmanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myscripts\\shoppage\\shoppagectrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\shoppage\\shoppagectrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myscripts\\category\\categorymanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\category\\categorymanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\admindashboard\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\admindashboard\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\admindashboard\\category.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\views\\admindashboard\\category.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\admindashboard\\category.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\carshop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\carshop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myservices\\pagination\\paginationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myservices\\pagination\\paginationservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\databasemanager\\data\\categorydatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\databasemanager\\data\\categorydatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\carshop\\myorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\carshop\\myorders.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\controllers\\categoryapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\controllers\\categoryapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\views\\carshop\\shoppage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\views\\carshop\\shoppage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\projecttest\\myscripts\\order\\myordersmanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myscripts\\order\\myordersmanagementctrl.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|c:\\users\\admin\\desktop\\visualstudio\\projecttest\\projecttest\\myservices\\category\\categorywebapiservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{66CAA3E4-FB0E-4BE6-B3AE-98AE90672BCB}|ProjectTest\\ProjectTest.csproj|solutionrelative:projecttest\\myservices\\category\\categorywebapiservice.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,168 +54,150 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserManager.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
-              "RelativeDocumentMoniker": "ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
-              "RelativeToolTip": "ProjectTest\\DatabaseManager\\Business\\UserManager.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T08:21:34.362Z",
+              "DocumentIndex": 0,
+              "Title": "authModal.html",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyModals\\authModal.html",
+              "RelativeDocumentMoniker": "ProjectTest\\MyModals\\authModal.html",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyModals\\authModal.html",
+              "RelativeToolTip": "ProjectTest\\MyModals\\authModal.html",
+              "ViewState": "AQIAABkAAAAAAAAAAAAAAC8AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-06-10T15:38:47.129Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "ProjectTest\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\UserController.cs",
-              "RelativeToolTip": "ProjectTest\\Controllers\\UserController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAACYAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T08:19:56.371Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthenticationService.js",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
-              "RelativeDocumentMoniker": "ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
-              "RelativeToolTip": "ProjectTest\\MyServices\\Authentication\\AuthenticationService.js",
-              "ViewState": "AQIAADAAAAAAAAAAAAAAADcAAAAbAAAA",
+              "Title": "ShopPageCtrl.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\ShopPage\\ShopPageCtrl.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\ShopPage\\ShopPageCtrl.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\ShopPage\\ShopPageCtrl.js",
+              "RelativeToolTip": "ProjectTest\\MyScripts\\ShopPage\\ShopPageCtrl.js",
+              "ViewState": "AQIAALUBAAAAAAAAAAAAAMMBAABmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-03T08:16:12.693Z",
+              "WhenOpened": "2025-06-10T15:37:35.292Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthenticationCtrl.js",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
-              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
-              "RelativeToolTip": "ProjectTest\\MyScripts\\Authentication\\AuthenticationCtrl.js",
-              "ViewState": "AQIAAA8BAAAAAAAAAAAAAAMBAAADAAAA",
+              "Title": "CheckoutController.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\ShopPage\\CheckoutController.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\ShopPage\\CheckoutController.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\ShopPage\\CheckoutController.js",
+              "RelativeToolTip": "ProjectTest\\MyScripts\\ShopPage\\CheckoutController.js",
+              "ViewState": "AQIAABkAAAAAAAAAAAAAACcAAABlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-03T08:16:07.138Z",
+              "WhenOpened": "2025-06-10T15:36:53.244Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ProjectTest\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ProjectTest\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAPgAAAAAAAAAAAAQwA8BAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-28T16:22:34.109Z"
+              "DocumentIndex": 2,
+              "Title": "checkoutModal.html",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyModals\\checkoutModal.html",
+              "RelativeDocumentMoniker": "ProjectTest\\MyModals\\checkoutModal.html",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyModals\\checkoutModal.html",
+              "RelativeToolTip": "ProjectTest\\MyModals\\checkoutModal.html",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAAAEsAAABeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-06-10T15:35:39.247Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UserDataManager.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
-              "RelativeDocumentMoniker": "ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
-              "RelativeToolTip": "ProjectTest\\DatabaseManager\\Data\\UserDataManager.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAAAFYAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T11:10:35.052Z",
+              "Title": "ProductManagementCtrl.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Products\\ProductManagementCtrl.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Products\\ProductManagementCtrl.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Products\\ProductManagementCtrl.js",
+              "RelativeToolTip": "ProjectTest\\MyScripts\\Products\\ProductManagementCtrl.js",
+              "ViewState": "AQIAAPQAAAAAAAAAAAAAAP0AAABcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-10T15:23:55.364Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Users.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
-              "RelativeDocumentMoniker": "ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
-              "RelativeToolTip": "ProjectTest\\Views\\AdminDashboard\\Users.cshtml",
-              "ViewState": "AQIAAK4BAAAAAAAAAAAqwJwBAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T10:52:45.856Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "Category.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
               "RelativeDocumentMoniker": "ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
               "RelativeToolTip": "ProjectTest\\Views\\AdminDashboard\\Category.cshtml",
-              "ViewState": "AQIAAPgBAAAAAAAAAAAAAA4CAAAaAAAA",
+              "ViewState": "AQIAAGICAAAAAAAAAAAAAEsCAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T10:42:47.565Z"
+              "WhenOpened": "2025-06-10T15:21:28.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PaginationService.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Pagination\\PaginationService.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyServices\\Pagination\\PaginationService.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Pagination\\PaginationService.js",
+              "RelativeToolTip": "ProjectTest\\MyServices\\Pagination\\PaginationService.js",
+              "ViewState": "AQIAACwAAAAAAAAAAAAAAAkAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-10T15:19:38.526Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\Index.cshtml",
-              "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\Index.cshtml",
-              "RelativeToolTip": "ProjectTest\\Views\\CarShop\\Index.cshtml",
-              "ViewState": "AQIAAE8BAAAAAAAAAAAAAGgBAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T10:42:29.659Z"
+              "Title": "CategoryDataManager.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\CategoryDataManager.cs",
+              "RelativeDocumentMoniker": "ProjectTest\\DatabaseManager\\Data\\CategoryDataManager.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\DatabaseManager\\Data\\CategoryDataManager.cs",
+              "RelativeToolTip": "ProjectTest\\DatabaseManager\\Data\\CategoryDataManager.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-10T15:02:01.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CategoryManagementCtrl.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Category\\CategoryManagementCtrl.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Category\\CategoryManagementCtrl.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Category\\CategoryManagementCtrl.js",
+              "RelativeToolTip": "ProjectTest\\MyScripts\\Category\\CategoryManagementCtrl.js",
+              "ViewState": "AQIAAHUAAAAAAAAAAAAAAIYAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-10T15:01:06.797Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "ChatBotController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\ChatBotController.cs",
-              "RelativeDocumentMoniker": "ProjectTest\\Controllers\\ChatBotController.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\ChatBotController.cs",
-              "RelativeToolTip": "ProjectTest\\Controllers\\ChatBotController.cs",
-              "ViewState": "AQIAAJUAAAAAAAAAAAAIwLEAAAAAAAAA",
+              "Title": "CategoryAPIController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\CategoryAPIController.cs",
+              "RelativeDocumentMoniker": "ProjectTest\\Controllers\\CategoryAPIController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Controllers\\CategoryAPIController.cs",
+              "RelativeToolTip": "ProjectTest\\Controllers\\CategoryAPIController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T10:38:33.728Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ShopPage.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
-              "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
-              "RelativeToolTip": "ProjectTest\\Views\\CarShop\\ShopPage.cshtml",
-              "ViewState": "AQIAAC4DAAAAAAAAAAAAAAkAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T10:25:05.421Z"
+              "WhenOpened": "2025-06-10T15:01:52.518Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "MyOrders.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
-              "RelativeDocumentMoniker": "ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
-              "RelativeToolTip": "ProjectTest\\Views\\CarShop\\MyOrders.cshtml",
-              "ViewState": "AQIAAP8CAAAAAAAAAAAAABcDAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-27T10:24:20.298Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MyOrdersManagementCtrl.js",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",
-              "RelativeDocumentMoniker": "ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",
-              "RelativeToolTip": "ProjectTest\\MyScripts\\Order\\MyOrdersManagementCtrl.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoAAAAAAAAA",
+              "Title": "CategoryWebApiService.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Category\\CategoryWebApiService.js",
+              "RelativeDocumentMoniker": "ProjectTest\\MyServices\\Category\\CategoryWebApiService.js",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\VisualStudio\\ProjectTest\\ProjectTest\\MyServices\\Category\\CategoryWebApiService.js",
+              "RelativeToolTip": "ProjectTest\\MyServices\\Category\\CategoryWebApiService.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-05-27T10:21:43.567Z"
+              "WhenOpened": "2025-06-10T15:01:45.263Z",
+              "EditorCaption": ""
             }
           ]
         }

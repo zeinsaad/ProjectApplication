@@ -12,13 +12,13 @@ function CategoryManagementController($scope, CategoryService, PaginationService
         $scope.categories = [];
         $scope.pages = [];
         $scope.currentPage = 1;
-        $scope.pageSize = 3;
+        $scope.pageSize = 6;
         $scope.isLoading = true;
         $scope.LastPage = 0;
         // $scope.openDrillDowns = [];
 
         $scope.loadCategories = loadCategories;
-        $scope.updatePagination = updatePagination;
+       // $scope.updatePagination = updatePagination;
         $scope.showPage = ShowPage;
         $scope.Search = Search;
         $scope.addCategory = addCategory;
@@ -45,9 +45,9 @@ function CategoryManagementController($scope, CategoryService, PaginationService
         console.log($scope.categories.length);
     }
 
-    function updatePagination() {
+   /* function updatePagination() {
 
-        $scope.paginationData = PaginationService.getPages($scope.currentPage, $scope.pageSize, totalItems);
+        $scope.paginationData = PaginationService.getPages($scope.currentPage, totalItems, $scope.pageSize);
         console.log($scope.paginationData);
    
 
@@ -61,14 +61,14 @@ function CategoryManagementController($scope, CategoryService, PaginationService
        // $scope.pages = $scope.paginationData.pages;
         $scope.LastPage = totalPages;
 
-    }
+    } */
 
     function ShowPage(pageNumber) {
         $scope.currentPage = pageNumber;
-        var data = PaginationService.setPage(pageNumber, $scope.categories);
+        var data = PaginationService.setPage(pageNumber, $scope.categories, $scope.pageSize);
         $scope.currentCategories = data.dataArray;
         $scope.LastPage = data.totalPages;
-        $scope.pages = PaginationService.getPages($scope.currentPage, totalItems);
+        $scope.pages = PaginationService.getPages($scope.currentPage, totalItems, $scope.pageSize);
     }
 
     function loadCategories() {
@@ -80,13 +80,9 @@ function CategoryManagementController($scope, CategoryService, PaginationService
             .then(function (data) {
                 $scope.categories = data;
                 totalItems = data.length;
-               
-                $scope.paginationData = PaginationService.getPages($scope.currentPage, totalItems);
-           //     $scope.pages = $scope.paginationData.pages;
+                $scope.paginationData = PaginationService.getPages($scope.currentPage, totalItems, $scope.pageSize);
+                //     $scope.pages = $scope.paginationData.pages;
                 ShowPage($scope.currentPage);
-                console.log($scope.categories);
-                console.log($scope.pages);
-                  updatePagination();
                 $scope.isLoading = false;
             })
             .catch(function (error) {
@@ -136,6 +132,7 @@ function CategoryManagementController($scope, CategoryService, PaginationService
             if (result) {
                 // On success
                 $scope.showDeleteConfirmation = null;
+                $scope.currentPage = 1;
                 loadCategories();
                 // Refresh products or remove from array
             }

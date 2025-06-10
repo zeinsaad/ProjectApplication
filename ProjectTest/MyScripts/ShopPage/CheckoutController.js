@@ -37,7 +37,7 @@ angular.module('Ecommerce')
         var parameters = {
             userId: userId,
         };
-        ModalService.openModal('../MyModals/cartModal.html', 'ShoppingCartController', parameters, function (result) {
+        ModalService.openModal('../MyModals/cartModal.html', 'ShoppingCartController', parameters,'lg', function (result) {
 
         });
     };
